@@ -356,7 +356,7 @@
                     
                     <br>
                     <p><strong>[ OPSI 2: Sistem Potong Standar Samping ]</strong></p>
-                    <p>Opsi ini memutus jalur aman mesin via sensor standar samping. Sangat direkomendasikan untuk motor matic.</p>
+                    <p>Opsy ini memutus jalur aman mesin via sensor standar samping. Sangat direkomendasikan untuk motor matic.</p>
                     <ul>
                         <li>Cangkok (paralel) kabel <span class="badge-custom badge-red">Bintik Merah</span> ke kabel output kunci kontak (+12V) tanpa memotong kabel kontak tersebut.</li>
                         <li>Sambungkan kabel <span class="badge-custom badge-black">Bintik Hitam</span> ke Rangka Motor/Massa (GND).</li>
@@ -444,7 +444,7 @@
                     [ 5. Hard Reset ] <span class="accordion-icon">+</span>
                 </button>
                 <div class="accordion-content">
-                    <p>Menekan dan menahan tombol rahasia <span class="badge-custom badge-green">Kabel Bintik Hijau</span> selama 5 detik berturut-turut saat *startup* akan memicu pembersihan memori flash dan mengembalikan setelan RideKey ke pengaturan pabrik.</p>
+                    <p>Menekan dan menahan tombol rahasia <span class="badge">Kabel Bintik Hijau</span> selama 5 detik berturut-turut saat *startup* akan memicu pembersihan memori flash dan mengembalikan setelan RideKey ke pengaturan pabrik.</p>
                 </div>
             </div>
         </div>
@@ -475,6 +475,16 @@
 </div>
 
 <script>
+    /* FUNGSI UTAMA UNTUK MEMATIKAN VIDEO SECARA PAKSA */
+    function stopAllVideos() {
+        const iframes = document.querySelectorAll('.video-container iframe');
+        iframes.forEach(iframe => {
+            const currentSrc = iframe.src;
+            iframe.src = "";  /* Menghapus src mematikan video instan */
+            iframe.src = currentSrc; /* Mengembalikan src asal agar siap diputar lagi */
+        });
+    }
+
     function toggleAccordion(headerButton) {
         const section = headerButton.parentElement;
         const content = headerButton.nextElementSibling;
@@ -483,9 +493,15 @@
         if (isOpen) {
             content.style.maxHeight = null;
             section.classList.remove('active');
+            /* Jika akordeon ditutup pemiliknya, matikan video di dalamnya */
+            stopAllVideos();
         } else {
             const currentTab = section.parentElement;
             const siblingSections = currentTab.querySelectorAll('.section');
+            
+            /* Sebelum membuka akordeon baru, matikan video yang sedang menyala di akordeon lama */
+            stopAllVideos();
+
             siblingSections.forEach(s => {
                 s.classList.remove('active');
                 const c = s.querySelector('.accordion-content');
@@ -505,6 +521,9 @@
     function switchTab(event, tabId) {
         document.getElementById('searchInput').value = "";
         
+        /* MATIKAN VIDEO SAAT PENGGUNA BERPINDAH TAB UTAMA */
+        stopAllVideos();
+
         const tabs = document.querySelectorAll('.tab-btn');
         tabs.forEach(tab => tab.classList.remove('active'));
 
@@ -547,6 +566,9 @@
             activeTabBtn.classList.add('active');
             return;
         }
+
+        /* Matikan video jika pengguna mengetik sesuatu di kolom pencarian */
+        stopAllVideos();
 
         tabsBar.style.display = "none";
         contents.forEach(content => content.classList.add('active'));
