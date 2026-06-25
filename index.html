@@ -46,7 +46,7 @@
             color: white;
             font-size: 13px;
             box-sizing: border-box;
-            transition: 0.3s;
+            transition: border-color 0.2s;
         }
         .search-input:focus {
             outline: none;
@@ -92,7 +92,7 @@
             box-sizing:border-box;
             border:1px solid rgba(255,42,42,0.08);
             overflow: hidden;
-            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+            transition: background 0.2s, border-color 0.2s; /* Dioptimasi agar lebih ringan */
         }
 
         .accordion-header {
@@ -112,23 +112,22 @@
             align-items: center;
             margin: 0;
         }
-        .accordion-header:hover { background: rgba(255, 42, 42, 0.03); }
-        .accordion-icon { font-size: 16px; transition: transform 0.3s ease; color: #a89292; }
+        .accordion-icon { font-size: 16px; transition: transform 0.25s ease; color: #a89292; }
 
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.35s ease-out, padding 0.35s ease;
+            transition: max-height 0.3s ease-out; /* Menghapus transisi padding ganda yang berat */
             padding: 0 20px;
             font-size: 14px;
             line-height: 1.6;
         }
 
-        /* 2. EFEK GLOW PADA AKORDEON YANG SEDANG AKTIF/TERBUKA */
+        /* 2. EFEK GLOW DIOPTIMALKAN (LEBIH RINGAN) */
         .section.active {
             background: rgba(45, 22, 22, 0.4);
-            border-color: rgba(255, 42, 42, 0.7);
-            box-shadow: 0 0 15px rgba(255, 42, 42, 0.25);
+            border-color: rgba(255, 42, 42, 0.6);
+            box-shadow: 0 4px 12px rgba(255, 42, 42, 0.15);
         }
         .section.active .accordion-content { padding: 0 20px 20px 20px; }
         .section.active .accordion-icon { transform: rotate(45deg); color: #ff2a2a; }
@@ -140,7 +139,7 @@
         .tabs-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
         .tab-btn {
             flex: 1; min-width: 90px; padding: 8px; border: 1px solid rgba(255,42,42,0.2); border-radius: 10px;
-            background: rgba(45, 29, 29, 0.7); color: #a89292; font-size: 12px; font-weight: bold; cursor: pointer; transition: .3s; text-align: center;
+            background: rgba(45, 29, 29, 0.7); color: #a89292; font-size: 12px; font-weight: bold; cursor: pointer; transition: .2s; text-align: center;
         }
         .tab-btn:hover { color: white; background: rgba(58, 37, 37, 0.9); }
         .tab-btn.active {
@@ -166,24 +165,23 @@
         .badge-orange { background: rgba(61, 26, 0, 0.8); color: #ffaf7a; border: 1px solid rgba(255,108,0,0.3); }
         .badge-yellow { background: rgba(51, 43, 0, 0.8); color: #ffeb7a; border: 1px solid rgba(255,204,0,0.3); }
 
-        /* BADGE KUSTOM */
-        .badge-custom { padding: 2px 8px; border-radius: 4px; font-family: monospace; font-size: 13px; color: #ffffff; border: 1px dashed rgba(224, 224, 224, 0.6); display: inline-block; }
-        .badge-red { background: #4a0d0d; }
-        .badge-green { background: #0d3a1a; }
-        .badge-brown { background: #3e2723; }
-        .badge-orange { background: #5e2900; }
-        .badge-black { background: #050202; border: 1px dashed rgba(255, 255, 255, 0.4); }
+        /* BADGE KUSTOM DENGAN UKURAN SEJAJAR UNTUK DIAGRAM */
+        .badge-custom { padding: 3px 6px; border-radius: 4px; font-family: monospace; font-size: 11px; color: #ffffff; border: 1px dashed rgba(224, 224, 224, 0.4); display: inline-block; text-align: center; box-sizing: border-box; }
+        .badge-red { background: #4a0d0d; color: #ff9999; }
+        .badge-green { background: #0d3a1a; color: #a3ffa3; }
+        .badge-brown { background: #3e2723; color: #ffccbc; }
+        .badge-orange { background: #5e2900; color: #ffcc80; }
+        .badge-black { background: #050202; border: 1px dashed rgba(255, 255, 255, 0.4); color: #eeeeee; }
 
         .no-results { text-align: center; color: #a89292; padding: 20px; font-size: 14px; }
 
         /* ATURAN TABEL ASIMETRIS */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; table-layout: fixed; }
-        th, td { border: 1px solid rgba(255, 42, 42, 0.15); padding: 12px; text-align: left; vertical-align: middle; word-wrap: break-word; overflow-wrap: break-word; transition: all 0.2s ease; }
+        th, td { border: 1px solid rgba(255, 42, 42, 0.15); padding: 12px; text-align: left; vertical-align: middle; word-wrap: break-word; overflow-wrap: break-word; }
         th:nth-child(1), td:nth-child(1) { width: 35%; }
         th:nth-child(2), td:nth-child(2) { width: 65%; }
         th { background: #251111; color: #ff8888; font-weight: bold; letter-spacing: 0.5px; border-bottom: 2px solid rgba(255, 42, 42, 0.4); }
         td { background: rgba(22, 15, 15, 0.6); color: #e0cccc; }
-        table tr:hover td { background: rgba(31, 20, 20, 0.8); color: #ffffff; border-color: rgba(255, 42, 42, 0.4); }
         table .badge-custom { display: block; text-align: center; padding: 5px; }
 
         /* HEADER SUB-DIAGRAM UNTUK RUANG MINIMALIS */
@@ -199,6 +197,12 @@
 
         .diagram-divider.orange-theme { color: #ff6c00; }
         .diagram-divider.orange-theme::before, .diagram-divider.orange-theme::after { border-bottom-color: rgba(255,108,0,0.3); }
+
+        /* MODIFIKASI GRID LIST AGAR KABEL SEJAJAR SEMPURNA */
+        .visual-list { list-style: none !important; padding-left: 0 !important; margin: 0; }
+        .visual-list li { margin-bottom: 12px; font-size: 11px; line-height: 1.5; display: flex; align-items: center; }
+        .visual-list li .badge-custom { width: 95px; flex-shrink: 0; margin-right: 10px; } /* Lebar badge dikunci 95px */
+        .visual-list li .desc { flex-grow: 1; color: #e0cccc; }
 
         /* RESPONSIVE CARD VIEW UNTUK HP */
         @media screen and (max-width: 480px) {
@@ -285,24 +289,24 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td data-label="Warna"><span class="badge-custom badge-red">Bintik Merah</span></td>
-                                <td data-label="Arti">Power Modul (+12V Aki/Kunci Kontak)</td>
+                                <td data-label="Warna"><span class="badge-custom badge-red" style="width:100%;">Bintik Merah</span></td>
+                                <td data-label="Arti">Power Modul (+12V Keluaran Kunci Kontak)</td>
                             </tr>
                             <tr>
-                                <td data-label="Warna"><span class="badge-custom badge-black">Bintik Hitam</span></td>
+                                <td data-label="Warna"><span class="badge-custom badge-black" style="width:100%;">Bintik Hitam</span></td>
                                 <td data-label="Arti">GND / Massa / Rangka Besi Motor</td>
                             </tr>
                             <tr>
-                                <td data-label="Warna"><span class="badge-custom badge-orange">Bintik Orange</span></td>
-                                <td data-label="Arti">Input Relay (Arus Masuk ke Modul)</td>
+                                <td data-label="Warna"><span class="badge-custom badge-orange" style="width:100%;">Bintik Orange</span></td>
+                                <td data-label="Arti">Input Relay</td>
                             </tr>
                             <tr>
-                                <td data-label="Warna"><span class="badge-custom badge-brown">Bintik Cokelat</span></td>
-                                <td data-label="Arti">Output Relay (Arus Keluar Menuju Motor)</td>
+                                <td data-label="Warna"><span class="badge-custom badge-brown" style="width:100%;">Bintik Cokelat</span></td>
+                                <td data-label="Arti">Output Relay</td>
                             </tr>
                             <tr>
-                                <td data-label="Warna"><span class="badge-custom badge-green">Bintik Hijau</span></td>
-                                <td data-label="Arti">Tombol Rahasia (Hanya Digunakan untuk Reset Pabrik)</td>
+                                <td data-label="Warna"><span class="badge-custom badge-green" style="width:100%;">Bintik Hijau</span></td>
+                                <td data-label="Arti">Untuk Tombol Rahasia (Hanya digunakan untuk Reset Pabrik)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -310,22 +314,23 @@
             </div>
             <div class="section">
                 <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ Pemasangan Pada Motor ] <span class="accordion-icon">+</span>
+                    [ Pemasangan Pada Motor : OPSI 1 ] <span class="accordion-icon">+</span>
                 </button>
                 <div class="accordion-content">
-                    <p><strong>[ OPSI 1: Sistem Potong Kunci Kontak ]</strong></p>
+                    <p><strong>[ Sistem Potong Kunci Kontak ]</strong></p>
                     <p>Opsi ini memutus jalur aliran listrik utama langsung dari kunci kontak utama motor Anda.</p>
                     <ul>
-                        <li>Potong kabel arus keluar (+12V) pada kunci kontak motor.</li>
-                        <li>Sambungkan kabel <span class="badge-custom badge-red">Bintik Merah</span> dan <span class="badge-custom badge-orange">Bintik Orange</span> ke ujung kabel yang berasal dari arah Kunci Kontak.</li>
-                        <li>Sambungkan kabel <span class="badge-custom badge-black">Bintik Hitam</span> ke Rangka Motor/Massa (GND).</li>
+                        <li>Potong kabel keluaran (+12V) pada kunci kontak motor.</li>
+                        <li>Sambungkan kabel <span class="badge-custom badge-red">Bintik Merah</span> dan <span class="badge-custom badge-orange">Bintik Orange</span> ke ujung kabel keluaran (+12V) dari Kunci Kontak (yang tadi dipotong).</li>
                         <li>Sambungkan kabel <span class="badge-custom badge-brown">Bintik Cokelat</span> ke ujung kabel potongan satunya (yang menuju ke sistem kelistrikan/beban motor).</li>
+                        <li>Sambungkan kabel <span class="badge-custom badge-black">Bintik Hitam</span> ke rangka motor/massa (GND).</li>
+                        <li>Untuk kabel <span class="badge-custom badge-green">Bintik Hijau</span> tidak wajib dipasang, fungsinya hanya untuk factory reset saat lupa sandi, jika ingin dipasang, disarankan untuk dipasang/digabung dengan out saklar klakson.</li>
                     </ul>
 
-                    <div class="diagram-divider">✂️ SKEMA SAMBUNGAN KUNCI KONTAK</div>
+                    <div class="diagram-divider">✂️ SKEMA UNTUK OPSI 1</div>
                     <div style="font-family: monospace; color: #fff; margin: 5px 0; box-sizing: border-box;">
                         <div style="display: flex; align-items: center; justify-content: center; background: #070303; padding: 10px; border-radius: 8px; border: 1px dashed #331212; margin-bottom: 8px;">
-                            <div style="text-align: center; width: 40%; background: #2d1d1d; border: 1px solid #ff2a2a; padding: 6px; font-size: 10px; border-radius: 4px;">[ SISI KONTAK ]<br>Kunci Kontak</div>
+                            <div style="text-align: center; width: 40%; background: #2d1d1d; border: 1px solid #ff2a2a; padding: 6px; font-size: 10px; border-radius: 4px;">[ SISI KONTAK ]<br>KELUARAN (+12V)</div>
                             <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; margin: 0 3px;">
                                 <div style="width: 25%; height: 3px; background: #bc1313;"></div>
                                 <div style="font-size: 12px; margin: 0 2px;">✂️</div>
@@ -333,42 +338,55 @@
                             </div>
                             <div style="text-align: center; width: 40%; background: #1a1a1a; border: 1px solid #444; padding: 6px; font-size: 10px; border-radius: 4px; color: #aaa;">[ SISI MOTOR ]<br>Kelistrikan Motor</div>
                         </div>
-                        <div style="background: #070303; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,42,42,0.1); font-size: 11px; line-height: 1.5;">
-                            <div style="color: #ff8888; font-size: 11px; font-weight: bold; margin-bottom: 4px;">🟢 SAMBUNGKAN KE SISI KUNCI KONTAK:</div>
-                            <div style="margin-left: 6px; margin-bottom: 8px;">
-                                <span style="display:inline-block; width:8px; height:8px; background:#ff2a2a; border-radius:50%;"></span> Merah &nbsp;&nbsp;&nbsp;➔ Kabel Kontak (+12V)<br>
-                                <span style="display:inline-block; width:8px; height:8px; background:#ff6c00; border-radius:50%;"></span> Orange &nbsp;&nbsp;➔ Kabel Kontak (Relay In)
-                            </div>
-                            <div style="color: #c4825a; font-size: 11px; font-weight: bold; margin-bottom: 4px;">🔵 SAMBUNGKAN KE SISI KELISTRIKAN MOTOR:</div>
-                            <div style="margin-left: 6px; margin-bottom: 8px;">
-                                <span style="display:inline-block; width:8px; height:8px; background:#8e502f; border-radius:50%;"></span> Cokelat &nbsp;➔ Kabel Kelistrikan Motor
-                            </div>
-                            <div style="color: #aaa; font-size: 11px; font-weight: bold; margin-bottom: 4px;">⚫ GROUND & AKSESORIS:</div>
-                            <div style="margin-left: 6px;">
-                                <span style="display:inline-block; width:8px; height:8px; background:#ffffff; border-radius:50%;"></span> Hitam &nbsp;&nbsp;&nbsp;➔ Baut Rangka Besi (GND)<br>
-                                <span style="display:inline-block; width:8px; height:8px; background:#2ecc71; border-radius:50%;"></span> Hijau &nbsp;&nbsp;&nbsp;➔ Isolasi Mati (Jangan Dipasang)
-                            </div>
+                        <div style="background: #070303; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,42,42,0.1); font-size: 11px; line-height: 1.5;">
+                            <ul class="visual-list">
+                                <li>
+                                    <span class="badge-custom badge-red">Bintik Merah</span>
+                                    <div class="desc">➔ Sisi potongan kunci kontak (+12V)</div>
+                                </li>
+                                <li>
+                                    <span class="badge-custom badge-orange">Bintik Orange</span>
+                                    <div class="desc">➔ Sisi potongan kunci kontak (+12V), gabung dengan kabel <span class="badge-custom badge-red">Bintik Merah</span></div>
+                                </li>
+                                <li>
+                                    <span class="badge-custom badge-brown">Bintik Cokelat</span>
+                                    <div class="desc">➔ Sisi potongan kelistrikan motor</div>
+                                </li>
+                                <li>
+                                    <span class="badge-custom badge-black">Bintik Hitam</span>
+                                    <div class="desc">➔ Baut rangka besi motor (GND/Massa)</div>
+                                </li>
+                                <li>
+                                    <span class="badge-custom badge-green">Bintik Hijau</span>
+                                    <div class="desc">➔ Tidak wajib dipasang, jika ingin dipasang, gabungkan/cangkokan dengan out saklar klakson</div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
                     <div class="doc-image" style="display: none;"></div>
-                    <div class="info-text" style="margin-top: 10px;">*Efek OPSI 1: Saat kunci kontak diputar ke posisi <span class="badge">ON</span>, lampu utama dan panel instrumen speedometer mati total sebelum remote/kunci BLE terdeteksi oleh modul.</div>
-                    
-                    <br>
-                    <p><strong>[ OPSI 2: Sistem Potong Standar Samping ]</strong></p>
-                    <p>Opsy ini memutus jalur aman mesin via sensor standar samping. Sangat direkomendasikan untuk motor matic.</p>
+                    <div class="info-text" style="margin-top: 10px;">*Efek OPSI 1: Saat kunci kontak diputar ke posisi <span class="badge">ON</span>, lampu utama dan panel instrumen speedometer mati total sebelum Kunci Pengaman terdeteksi.</div>
+</div>
+</div>
+<div class="section">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    [ Pemasangan Pada Motor : OPSI 2 ] <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <p><strong>[ Sistem Potong Standar Samping ]</strong></p>
+                    <p>Opsi ini memutus jalur aman mesin via standar samping.</p>
                     <ul>
-                        <li>Cangkok (paralel) kabel <span class="badge-custom badge-red">Bintik Merah</span> ke kabel output kunci kontak (+12V) tanpa memotong kabel kontak tersebut.</li>
-                        <li>Sambungkan kabel <span class="badge-custom badge-black">Bintik Hitam</span> ke Rangka Motor/Massa (GND).</li>
+                        <li>Cangkok (paralel) kabel <span class="badge-custom badge-red">Bintik Merah</span> ke kabel keluaran kunci kontak (+12V) tanpa memotong kabel tersebut.</li>
+                        <li>Sambungkan kabel <span class="badge-custom badge-black">Bintik Hitam</span> ke rangka motor/massa (GND).</li>
                         <li>Potong kabel salah satu jalur switch standar samping motor Anda.</li>
-                        <li>Sambungkan kabel <span class="badge-custom badge-orange">Bintik Orange</span> ke potongan kabel standar samping yang mengarah ke atas (menuju ECU/CDI Komputer Motor).</li>
-                        <li>Sambungkan kabel <span class="badge-custom badge-brown">Bintik Cokelat</span> ke potongan kabel satunya yang mengarah ke bawah (menuju Saklar/Switch Standar Samping fisik).</li>
+                        <li>Sambungkan kabel <span class="badge-custom badge-orange">Bintik Orange</span> ke potongan kabel standar samping yang mengarah ke atas (menuju ECU/CDI).</li>
+                        <li>Sambungkan kabel <span class="badge-custom badge-brown">Bintik Cokelat</span> ke potongan kabel satunya yang mengarah ke bawah (menuju Saklar/Switch Standar Samping).</li>
                     </ul>
 
-                    <div class="diagram-divider orange-theme">🔌 SKEMA SAMBUNGAN STANDAR SAMPING</div>
+                    <div class="diagram-divider orange-theme">✂️ SKEMA UNTUK OPSI 2</div>
                     <div style="font-family: monospace; color: #fff; margin: 5px 0; box-sizing: border-box;">
                         <div style="display: flex; align-items: center; justify-content: center; background: #070303; padding: 10px; border-radius: 8px; border: 1px dashed #331c12; margin-bottom: 8px;">
-                            <div style="text-align: center; width: 40%; background: #231912; border: 1px solid #ff6c00; padding: 6px; font-size: 10px; border-radius: 4px; color:#ffaf7a;">[ SISI ATAS ]<br>Jalur ECU Komputer</div>
+                            <div style="text-align: center; width: 40%; background: #231912; border: 1px solid #ff6c00; padding: 6px; font-size: 10px; border-radius: 4px; color:#ffaf7a;">[ SISI ATAS ]<br>ECU/CDI</div>
                             <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; margin: 0 3px;">
                                 <div style="width: 25%; height: 3px; background: #3498db;"></div>
                                 <div style="font-size: 12px; margin: 0 2px;">✂️</div>
@@ -376,27 +394,32 @@
                             </div>
                             <div style="text-align: center; width: 40%; background: #1a1a1a; border: 1px solid #444; padding: 6px; font-size: 10px; border-radius: 4px; color: #aaa;">[ SISI BAWAH ]<br>Saklar Standar</div>
                         </div>
-                        <div style="background: #070303; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,108,0,0.1); font-size: 11px; line-height: 1.5;">
-                            <div style="color: #ffaf7a; font-size: 11px; font-weight: bold; margin-bottom: 4px;">🟠 POWER UTAMA (CANGKOK JALUR):</div>
-                            <div style="margin-left: 6px; margin-bottom: 8px;">
-                                <span style="display:inline-block; width:8px; height:8px; background:#ff2a2a; border-radius:50%;"></span> Merah &nbsp;&nbsp;&nbsp;➔ Output Kontak 12V (Ambil Arus)<br>
-                                <span style="display:inline-block; width:8px; height:8px; background:#ffffff; border-radius:50%;"></span> Hitam &nbsp;&nbsp;&nbsp;➔ Baut Rangka Besi (GND)
-                            </div>
-                            <div style="color: #ffcc00; font-size: 11px; font-weight: bold; margin-bottom: 4px;">🟢 POTONGAN ATAS (ARAH ECU):</div>
-                            <div style="margin-left: 6px; margin-bottom: 8px;">
-                                <span style="display:inline-block; width:8px; height:8px; background:#ff6c00; border-radius:50%;"></span> Orange &nbsp;&nbsp;➔ Kabel Potongan Arah ECU
-                            </div>
-                            <div style="color: #c4825a; font-size: 11px; font-weight: bold; margin-bottom: 4px;">🔵 POTONGAN BAWAH (ARAH STANDAR):</div>
-                            <div style="margin-left: 6px; margin-bottom: 8px;">
-                                <span style="display:inline-block; width:8px; height:8px; background:#8e502f; border-radius:50%;"></span> Cokelat &nbsp;➔ Kabel Potongan Arah Saklar Standar
-                            </div>
-                            <div style="color: #666; font-size: 11px; font-weight: bold; margin-bottom: 4px;">⚠️ KABEL SISA:</div>
-                            <div style="margin-left: 6px;">
-                                <span style="display:inline-block; width:8px; height:8px; background:#2ecc71; border-radius:50%;"></span> Hijau &nbsp;&nbsp;&nbsp;➔ Isolasi Mati (Jangan Dipasang)
-                            </div>
+                        <div style="background: #070303; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,108,0,0.1); font-size: 11px; line-height: 1.5;">
+                            <ul class="visual-list">
+                                <li>
+                                    <span class="badge-custom badge-red">Bintik Merah</span>
+                                    <div class="desc">➔ Cangkok ke kabel keluaran Kunci Kontak (+12V)</div>
+                                </li>
+                                <li>
+                                    <span class="badge-custom badge-black">Bintik Hitam</span>
+                                    <div class="desc">➔ Baut rangka besi motor (GND/Massa)</div>
+                                </li>
+                                <li>
+                                    <span class="badge-custom badge-orange">Bintik Orange</span>
+                                    <div class="desc">➔ Kabel potongan atas arah ECU/CDI</div>
+                                </li>
+                                <li>
+                                    <span class="badge-custom badge-brown">Bintik Cokelat</span>
+                                    <div class="desc">➔ Kabel potongan bawah arah saklar</div>
+                                </li>
+                                <li>
+                                    <span class="badge-custom badge-green">Bintik Hijau</span>
+                                    <div class="desc">➔ Tidak wajib dipasang, jika ingin dipasang, gabungkan/cangkokan dengan out saklar klakson</div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="info-text" style="margin-top: 10px;">*Efek OPSI 2: Saat kunci kontak diputar ke posisi <span class="badge">ON</span>, panel speedometer dan lampu motor menyala normal, namun mesin sama sekali tidak bisa di-stater (di-starter tangan maupun kick starter) sebelum kunci BLE terdeteksi.</div>
+                    <div class="info-text" style="margin-top: 10px;">*Efek OPSI 2: Saat kunci kontak diputar ke posisi <span class="badge">ON</span>, panel speedometer dan lampu motor menyala normal, namun mesin sama sekali tidak bisa di-stater (di-starter tangan maupun kick starter) sebelum Kunci Pengaman terdeteksi.</div>
                 </div>
             </div>
         </div>
@@ -444,7 +467,7 @@
                     [ 5. Hard Reset ] <span class="accordion-icon">+</span>
                 </button>
                 <div class="accordion-content">
-                    <p>Menekan dan menahan tombol rahasia <span class="badge">Kabel Bintik Hijau</span> selama 5 detik berturut-turut saat *startup* akan memicu pembersihan memori flash dan mengembalikan setelan RideKey ke pengaturan pabrik.</p>
+                    <p>Menekan dan menahan tombol rahasia <span class="badge-custom badge-green">Kabel Bintik Hijau</span> selama 5 detik berturut-turut saat *startup* akan memicu pembersihan memori flash dan mengembalikan setelan RideKey ke pengaturan pabrik.</p>
                 </div>
             </div>
         </div>
@@ -452,7 +475,24 @@
         <div id="tab-video" class="tab-content">
             <div class="section">
                 <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ Tutorial 1: Login & Scan ] <span class="accordion-icon">+</span>
+                    [ Login Halaman Konfigurasi ] <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" frameborder="0" allowfullscreen></iframe>
+                    </div>
+<div class="info-text" style="margin-top: 10px;">*Untuk smartphone yang tidak otomatis membuka halaman login saat terhubung ke WiFi RideKey, silahkan ikuti cara di bawah ini:</div>
+<ul>
+<li>Matikan data seluler</li>
+<li>Hubungkan ke WiFi <span class="badge">RideKey</span></li>
+<li>Jika ada popup/pemberitahuan yang menyatakan "<span class="badge">Jaringan/WiFi ini tidak memiliki akses internet. Tetap hubungkan?</span>", jawab <span class="badge">Ya</span></li>
+<li>Buka Chrome ➔ akses <span class="badge">http://193.168.4.1</span> atau <span class="badge">www.ridekey.net</span></li>
+</ul>
+                </div>
+            </div>
+            <div class="section">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    [ Pairing / Ubah Kunci Pengaman ] <span class="accordion-icon">+</span>
                 </button>
                 <div class="accordion-content">
                     <div class="video-container">
@@ -460,9 +500,19 @@
                     </div>
                 </div>
             </div>
-            <div class="section" style="border: 1px solid rgba(255,42,42,0.15);">
+            <div class="section">
                 <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ Tutorial 2: Anti-Begal ] <span class="accordion-icon">+</span>
+                    [ BYPASS ] <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    [ Anti-Begal &amp; Valet Mode] <span class="accordion-icon">+</span>
                 </button>
                 <div class="accordion-content">
                     <div class="video-container">
@@ -475,13 +525,12 @@
 </div>
 
 <script>
-    /* FUNGSI UTAMA UNTUK MEMATIKAN VIDEO SECARA PAKSA */
     function stopAllVideos() {
         const iframes = document.querySelectorAll('.video-container iframe');
         iframes.forEach(iframe => {
             const currentSrc = iframe.src;
-            iframe.src = "";  /* Menghapus src mematikan video instan */
-            iframe.src = currentSrc; /* Mengembalikan src asal agar siap diputar lagi */
+            iframe.src = "";  
+            iframe.src = currentSrc; 
         });
     }
 
@@ -489,17 +538,16 @@
         const section = headerButton.parentElement;
         const content = headerButton.nextElementSibling;
         const isOpen = section.classList.contains('active');
+        const container = document.getElementById('scrollContainer');
         
         if (isOpen) {
             content.style.maxHeight = null;
             section.classList.remove('active');
-            /* Jika akordeon ditutup pemiliknya, matikan video di dalamnya */
             stopAllVideos();
         } else {
             const currentTab = section.parentElement;
             const siblingSections = currentTab.querySelectorAll('.section');
             
-            /* Sebelum membuka akordeon baru, matikan video yang sedang menyala di akordeon lama */
             stopAllVideos();
 
             siblingSections.forEach(s => {
@@ -511,8 +559,10 @@
             content.style.maxHeight = content.scrollHeight + "px";
             section.classList.add('active');
             
+            // PERBAIKAN: Fokus scroll diarahkan aman ke kontainer internal (Mencegah card rusak naik ke atas)
             setTimeout(() => {
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const targetOffset = section.offsetTop - container.offsetTop;
+                container.scrollTo({ top: targetOffset, behavior: 'smooth' });
             }, 380);
         }
         setTimeout(updateProgressBar, 360);
@@ -520,8 +570,6 @@
 
     function switchTab(event, tabId) {
         document.getElementById('searchInput').value = "";
-        
-        /* MATIKAN VIDEO SAAT PENGGUNA BERPINDAH TAB UTAMA */
         stopAllVideos();
 
         const tabs = document.querySelectorAll('.tab-btn');
@@ -567,7 +615,6 @@
             return;
         }
 
-        /* Matikan video jika pengguna mengetik sesuatu di kolom pencarian */
         stopAllVideos();
 
         tabsBar.style.display = "none";
