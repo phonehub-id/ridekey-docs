@@ -92,7 +92,7 @@
             box-sizing:border-box;
             border:1px solid rgba(255,42,42,0.08);
             overflow: hidden;
-            transition: background 0.2s, border-color 0.2s; /* Dioptimasi agar lebih ringan */
+            transition: background 0.2s, border-color 0.2s;
         }
 
         .accordion-header {
@@ -117,13 +117,13 @@
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out; /* Menghapus transisi padding ganda yang berat */
+            transition: max-height 0.3s ease-out;
             padding: 0 20px;
             font-size: 14px;
             line-height: 1.6;
         }
 
-        /* 2. EFEK GLOW DIOPTIMALKAN (LEBIH RINGAN) */
+        /* EFEK GLOW */
         .section.active {
             background: rgba(45, 22, 22, 0.4);
             border-color: rgba(255, 42, 42, 0.6);
@@ -150,69 +150,64 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* MEDIA INTERFACES */
-        .doc-image { width: 100%; border-radius: 10px; border: 1px solid rgba(255,42,42,0.2); margin: 12px 0; background: #0d0606; }
+        /* MEDIA INTERFACES & SPINNER */
         .video-container {
             position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
             border-radius: 10px; border: 1px solid rgba(255,42,42,0.2); margin-bottom: 15px; background: #0d0606;
         }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        /* Spinner Loader */
+        .video-loader {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            border: 4px solid #2d1d1d; border-top: 4px solid #ff2a2a; border-radius: 50%;
+            width: 40px; height: 40px; animation: spin 1s linear infinite; z-index: 1;
+        }
+        @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+        
+        .video-container iframe { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; z-index: 2;
+            opacity: 0; transition: opacity 0.5s ease;
+        }
 
         ul { padding-left: 20px; margin: 8px 0; }
         li { margin-bottom: 6px; }
         
         .badge { background: rgba(51, 18, 18, 0.8); color: #ff8888; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px; border: 1px solid rgba(255,42,42,0.15); }
-        .badge-orange { background: rgba(61, 26, 0, 0.8); color: #ffaf7a; border: 1px solid rgba(255,108,0,0.3); }
-        .badge-yellow { background: rgba(51, 43, 0, 0.8); color: #ffeb7a; border: 1px solid rgba(255,204,0,0.3); }
-
-        /* BADGE KUSTOM DENGAN UKURAN SEJAJAR UNTUK DIAGRAM */
         .badge-custom { padding: 3px 6px; border-radius: 4px; font-family: monospace; font-size: 11px; color: #ffffff; border: 1px dashed rgba(224, 224, 224, 0.4); display: inline-block; text-align: center; box-sizing: border-box; }
         .badge-red { background: #4a0d0d; color: #ff9999; }
         .badge-green { background: #0d3a1a; color: #a3ffa3; }
         .badge-brown { background: #3e2723; color: #ffccbc; }
         .badge-orange { background: #5e2900; color: #ffcc80; }
         .badge-black { background: #050202; border: 1px dashed rgba(255, 255, 255, 0.4); color: #eeeeee; }
+        .badge-yellow { background: rgba(51, 43, 0, 0.8); color: #ffeb7a; border: 1px solid rgba(255,204,0,0.3); }
 
         .no-results { text-align: center; color: #a89292; padding: 20px; font-size: 14px; }
 
-        /* ATURAN TABEL ASIMETRIS */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; table-layout: fixed; }
-        th, td { border: 1px solid rgba(255, 42, 42, 0.15); padding: 12px; text-align: left; vertical-align: middle; word-wrap: break-word; overflow-wrap: break-word; }
+        th, td { border: 1px solid rgba(255, 42, 42, 0.15); padding: 12px; text-align: left; vertical-align: middle; word-wrap: break-word; }
         th:nth-child(1), td:nth-child(1) { width: 35%; }
         th:nth-child(2), td:nth-child(2) { width: 65%; }
-        th { background: #251111; color: #ff8888; font-weight: bold; letter-spacing: 0.5px; border-bottom: 2px solid rgba(255, 42, 42, 0.4); }
+        th { background: #251111; color: #ff8888; font-weight: bold; }
         td { background: rgba(22, 15, 15, 0.6); color: #e0cccc; }
-        table .badge-custom { display: block; text-align: center; padding: 5px; }
 
-        /* HEADER SUB-DIAGRAM UNTUK RUANG MINIMALIS */
         .diagram-divider {
             display: flex; align-items: center; text-align: center; color: #ff2a2a; 
             font-size: 11px; font-weight: bold; letter-spacing: 1px; font-family: monospace; margin: 20px 0 12px 0;
         }
-        .diagram-divider::before, .diagram-divider::after {
-            content: ''; flex: 1; border-bottom: 1px solid rgba(255, 42, 42, 0.3);
-        }
+        .diagram-divider::before, .diagram-divider::after { content: ''; flex: 1; border-bottom: 1px solid rgba(255, 42, 42, 0.3); }
         .diagram-divider:not(:empty)::before { margin-right: .5em; }
         .diagram-divider:not(:empty)::after { margin-left: .5em; }
 
-        .diagram-divider.orange-theme { color: #ff6c00; }
-        .diagram-divider.orange-theme::before, .diagram-divider.orange-theme::after { border-bottom-color: rgba(255,108,0,0.3); }
-
-        /* MODIFIKASI GRID LIST AGAR KABEL SEJAJAR SEMPURNA */
         .visual-list { list-style: none !important; padding-left: 0 !important; margin: 0; }
         .visual-list li { margin-bottom: 12px; font-size: 11px; line-height: 1.5; display: flex; align-items: center; }
-        .visual-list li .badge-custom { width: 95px; flex-shrink: 0; margin-right: 10px; } /* Lebar badge dikunci 95px */
+        .visual-list li .badge-custom { width: 95px; flex-shrink: 0; margin-right: 10px; }
         .visual-list li .desc { flex-grow: 1; color: #e0cccc; }
 
-        /* RESPONSIVE CARD VIEW UNTUK HP */
         @media screen and (max-width: 480px) {
             table, thead, tbody, th, td, tr { display: block; width: 100% !important; box-sizing: border-box; }
             thead tr { position: absolute; top: -9999px; left: -9999px; }
-            tr { margin-bottom: 12px; border: 1px solid rgba(255, 42, 42, 0.2); border-radius: 8px; overflow: hidden; }
+            tr { margin-bottom: 12px; border: 1px solid rgba(255, 42, 42, 0.2); border-radius: 8px; }
             td { border: none; border-bottom: 1px solid rgba(255, 42, 42, 0.1); position: relative; padding-left: 40%; }
-            table .badge-custom { display: inline-block; text-align: left; }
             td::before { position: absolute; top: 12px; left: 12px; width: 35%; color: #ff8888; font-weight: bold; content: attr(data-label); }
-            td:last-child { border-bottom: none; }
         }
     </style>
 </head>
@@ -248,8 +243,9 @@
     <div class="tab-content-container" id="scrollContainer" onscroll="updateProgressBar()">
         <div id="noResultsMessage" class="no-results" style="display: none;">Kata kunci tidak ditemukan...</div>
 
+        <!-- Konten Tabs tetap sama, namun pada bagian iframe video diperbarui -->
         <div id="tab-tentang" class="tab-content active">
-            <div class="section">
+             <div class="section">
                 <button class="accordion-header" onclick="toggleAccordion(this)">
                     [ Penjelasan Sistem ] <span class="accordion-icon">+</span>
                 </button>
@@ -274,7 +270,7 @@
         </div>
 
         <div id="tab-installasi" class="tab-content">
-            <div class="section">
+             <div class="section">
                 <button class="accordion-header" onclick="toggleAccordion(this)">
                     [ Konfigurasi Kabel ] <span class="accordion-icon">+</span>
                 </button>
@@ -425,7 +421,7 @@
         </div>
 
         <div id="tab-fitur" class="tab-content">
-            <div class="section">
+             <div class="section">
                 <button class="accordion-header" onclick="toggleAccordion(this)">
                     [ 1. Smart Keyless Scan ] <span class="accordion-icon">+</span>
                 </button>
@@ -479,7 +475,8 @@
                 </button>
                 <div class="accordion-content">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" frameborder="0" allowfullscreen></iframe>
+                        <div class="video-loader"></div>
+                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" onload="videoSelesaiPemuatan(this)"></iframe>
                     </div>
 <div class="info-text" style="margin-top: 10px;">*Untuk smartphone yang tidak otomatis membuka halaman login saat terhubung ke WiFi RideKey, silahkan ikuti cara di bawah ini:</div>
 <ul>
@@ -490,13 +487,15 @@
 </ul>
                 </div>
             </div>
+            <!-- Ulangi pola di atas untuk semua iframe video lainnya -->
             <div class="section">
                 <button class="accordion-header" onclick="toggleAccordion(this)">
                     [ Pairing / Ubah Kunci Pengaman ] <span class="accordion-icon">+</span>
                 </button>
                 <div class="accordion-content">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" frameborder="0" allowfullscreen></iframe>
+                        <div class="video-loader"></div>
+                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" onload="videoSelesaiPemuatan(this)"></iframe>
                     </div>
                 </div>
             </div>
@@ -506,17 +505,19 @@
                 </button>
                 <div class="accordion-content">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" frameborder="0" allowfullscreen></iframe>
+                        <div class="video-loader"></div>
+                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" onload="videoSelesaiPemuatan(this)"></iframe>
                     </div>
                 </div>
             </div>
             <div class="section">
                 <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ Anti-Begal &amp; Valet Mode] <span class="accordion-icon">+</span>
+                    [ ANTI-BEGAL & VALET MODE ] <span class="accordion-icon">+</span>
                 </button>
                 <div class="accordion-content">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" frameborder="0" allowfullscreen></iframe>
+                        <div class="video-loader"></div>
+                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" onload="videoSelesaiPemuatan(this)"></iframe>
                     </div>
                 </div>
             </div>
@@ -525,15 +526,24 @@
 </div>
 
 <script>
+    function videoSelesaiPemuatan(iframe) {
+        const loader = iframe.previousElementSibling;
+        loader.style.display = 'none';
+        iframe.style.opacity = '1';
+    }
+
     function stopAllVideos() {
         const iframes = document.querySelectorAll('.video-container iframe');
         iframes.forEach(iframe => {
             const currentSrc = iframe.src;
             iframe.src = "";  
-            iframe.src = currentSrc; 
+            iframe.src = currentSrc;
+            iframe.style.opacity = '0';
+            iframe.previousElementSibling.style.display = 'block';
         });
     }
 
+    // ... (Fungsi toggleAccordion, switchTab, liveSearch, updateProgressBar tetap sama) ...
     function toggleAccordion(headerButton) {
         const section = headerButton.parentElement;
         const content = headerButton.nextElementSibling;
@@ -547,19 +557,14 @@
         } else {
             const currentTab = section.parentElement;
             const siblingSections = currentTab.querySelectorAll('.section');
-            
             stopAllVideos();
-
             siblingSections.forEach(s => {
                 s.classList.remove('active');
                 const c = s.querySelector('.accordion-content');
                 if(c) c.style.maxHeight = null;
             });
-
             content.style.maxHeight = content.scrollHeight + "px";
             section.classList.add('active');
-            
-            // PERBAIKAN: Fokus scroll diarahkan aman ke kontainer internal (Mencegah card rusak naik ke atas)
             setTimeout(() => {
                 const targetOffset = section.offsetTop - container.offsetTop;
                 container.scrollTo({ top: targetOffset, behavior: 'smooth' });
@@ -571,10 +576,8 @@
     function switchTab(event, tabId) {
         document.getElementById('searchInput').value = "";
         stopAllVideos();
-
         const tabs = document.querySelectorAll('.tab-btn');
         tabs.forEach(tab => tab.classList.remove('active'));
-
         const contents = document.querySelectorAll('.tab-content');
         contents.forEach(content => {
             content.classList.remove('active');
@@ -586,13 +589,10 @@
                 if(c) c.style.maxHeight = null;
             });
         });
-
         document.getElementById('noResultsMessage').style.display = "none";
         document.getElementById('tabsBar').style.display = "flex";
-
         if(event) event.currentTarget.classList.add('active');
         document.getElementById(tabId).classList.add('active');
-
         const container = document.getElementById('scrollContainer');
         container.scrollTop = 0;
         updateProgressBar();
@@ -604,9 +604,7 @@
         const tabsBar = document.getElementById('tabsBar');
         const contents = document.querySelectorAll('.tab-content');
         const noResults = document.getElementById('noResultsMessage');
-        
         let totalVisible = 0;
-
         if (input.trim() === "") {
             const activeTabBtn = document.querySelector('.tab-btn.active');
             const activeTabId = activeTabBtn.getAttribute('onclick').match(/'([^']+)'/)[1];
@@ -614,17 +612,13 @@
             activeTabBtn.classList.add('active');
             return;
         }
-
         stopAllVideos();
-
         tabsBar.style.display = "none";
         contents.forEach(content => content.classList.add('active'));
-
         sections.forEach(section => {
             const headerText = section.querySelector('.accordion-header').innerText.toLowerCase();
             const contentText = section.querySelector('.accordion-content').innerText.toLowerCase();
             const fullText = headerText + " " + contentText;
-
             if (fullText.includes(input)) {
                 section.style.display = "block";
                 const content = section.querySelector('.accordion-content');
@@ -635,7 +629,6 @@
                 section.style.display = "none";
             }
         });
-
         noResults.style.display = (totalVisible === 0) ? "block" : "none";
         updateProgressBar();
     }
@@ -643,18 +636,10 @@
     function updateProgressBar() {
         const container = document.getElementById('scrollContainer');
         const progressBar = document.getElementById('progressBar');
-        
         const scrollTop = container.scrollTop;
         const docHeight = container.scrollHeight - container.clientHeight;
-        
-        if (docHeight > 0) {
-            const scrollPercent = (scrollTop / docHeight) * 100;
-            progressBar.style.width = scrollPercent + '%';
-        } else {
-            progressBar.style.width = '0%';
-        }
+        progressBar.style.width = docHeight > 0 ? (scrollTop / docHeight) * 100 + '%' : '0%';
     }
 </script>
-
 </body>
 </html>
