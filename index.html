@@ -1,604 +1,1098 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RideKey - Manual & Dokumentasi</title>
     <style>
-        /* SINKRONISASI TEMA WEBUI RIDEKEY */
-        html,body{background:#0d0606;font-family:Arial,sans-serif;color:white;margin:0;padding:0;width:100%;height:100%;overflow:hidden;}
-        body{display:flex;justify-content:center;align-items:center;padding:15px;box-sizing:border-box;}
-        
-        /* 1. EFEK GLASSMORPHISM PADA CARD UTAMA */
-        .card{
-            width:100%;
-            max-width:500px;
-            height: 92vh;
-            max-height: 780px;
-            background: rgba(22, 15, 15, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px); 
-            border-radius:18px;
-            padding:25px;
-            box-shadow:0 0 40px rgba(255,42,42,0.2);
-            border:1px solid rgba(255,42,42,0.25);
-            box-sizing:border-box;
-            display:flex;
-            flex-direction:column;
-            position:relative;
+      /* TEMA: E-READER RACING (NYAMAN DI MATA, TETAP BERJIWA BALAP) */
+      html,
+      body {
+        background-color: #0b0c0e;
+        background-image:
+          linear-gradient(45deg, #111215 25%, transparent 25%, transparent 75%, #111215 75%, #111215),
+          linear-gradient(45deg, #111215 25%, transparent 25%, transparent 75%, #111215 75%, #111215);
+        background-size: 6px 6px;
+        background-position: 0 0, 3px 3px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+        color: #2d2b2a;
+        /* Warna arang/charcoal, lebih lembut dari hitam pekat */
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        box-sizing: border-box;
+      }
+
+      /* CARD UTAMA ALA KERTAS E-READER PREMIUM */
+      .card {
+        width: 100%;
+        max-width: 500px;
+        height: 92vh;
+        max-height: 780px;
+        background: #f4f1ea;
+        /* Warna kertas gading yang menyerap cahaya layar */
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(185, 28, 28, 0.08);
+        border: 1px solid #dbd7cd;
+        border-top: 5px solid #b91c1c;
+        /* Merah crimson racing yang lebih teduh */
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .header-fixed {
+        flex-shrink: 0;
+      }
+
+      /* SEARCH BAR WITH ICON */
+      .search-container {
+        margin-bottom: 15px;
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        background: #eae6dc;
+        /* Menyesuaikan warna kertas */
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 11px 14px 11px 38px;
+        color: #2d2b2a;
+        font-size: 13px;
+        box-sizing: border-box;
+        transition: all 0.2s;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: #b91c1c;
+        box-shadow: 0 0 8px rgba(185, 28, 28, 0.2);
+        background: #fafdfa;
+      }
+
+      .search-icon-svg {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        fill: #7f7f7f;
+        pointer-events: none;
+        transition: fill 0.2s;
+      }
+
+      .search-input:focus+.search-icon-svg {
+        fill: #b91c1c;
+      }
+
+      /* PROGRESS BAR BACA */
+      .progress-container {
+        width: 100%;
+        height: 3px;
+        background: #eae6dc;
+        margin-bottom: 15px;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: #b91c1c;
+        transition: width 0.1s ease-out;
+      }
+
+      /* WADAH KONTEN (SCROLLABLE) */
+      .tab-content-container {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding-right: 5px;
+        scroll-behavior: smooth;
+      }
+
+      .tab-content-container::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      .tab-content-container::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .tab-content-container::-webkit-scrollbar-thumb {
+        background: #b91c1c;
+        border-radius: 4px;
+      }
+
+      /* STRUKTUR AKORDEON */
+      .section {
+        background: #ebe7de;
+        /* Warna bayangan kertas lipat */
+        border-radius: 8px;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+        border: 1px solid #dbd7cd;
+        overflow: hidden;
+        transition: all 0.2s ease-in-out, opacity 0.3s ease;
+        opacity: 1;
+      }
+
+      .accordion-header {
+        width: 100%;
+        background: none;
+        border: none;
+        padding: 15px 20px;
+        text-align: left;
+        color: #55514e;
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0;
+      }
+
+      .accordion-icon-svg {
+        width: 14px;
+        height: 14px;
+        fill: #7f7f7f;
+        transition: transform 0.25s ease, fill 0.25s;
+      }
+
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        padding: 0 20px;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #55514e;
+      }
+
+      /* EFEK SAAT AKORDEON AKTIF */
+      .section.active {
+        background: #faf8f5;
+        /* Lebih terang sedikit saat dibuka agar fokus */
+        border-color: #b91c1c;
+        box-shadow: 0 4px 12px rgba(185, 28, 28, 0.03);
+      }
+
+      .section.active .accordion-content {
+        padding: 0 20px 20px 20px;
+        color: #2d2b2a;
+      }
+
+      .section.active .accordion-header {
+        color: #b91c1c;
+      }
+
+      .section.active .accordion-icon-svg {
+        transform: rotate(180deg);
+        fill: #b91c1c;
+      }
+
+      /* STATUS BAR UTAMA */
+      .status {
+        background: #ebe7de;
+        padding: 10px;
+        border-radius: 6px;
+        text-align: center;
+        margin-bottom: 15px;
+        color: #2d2b2a;
+        font-weight: 700;
+        border: 1px solid #dbd7cd;
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .status svg {
+        width: 14px;
+        height: 14px;
+        fill: #2d2b2a;
+      }
+
+      .info-text {
+        font-size: 11px;
+        color: #8a8477;
+        margin-top: 2px;
+        margin-bottom: 8px;
+        text-align: center;
+      }
+
+      /* TABS TOMBOL DENGAN IKON */
+      .tabs-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+
+      .tab-btn {
+        flex: 1;
+        min-width: 90px;
+        padding: 10px 4px;
+        border: 1px solid #dbd7cd;
+        border-radius: 6px;
+        background: #ebe7de;
+        color: #7f7f7f;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: .2s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        text-transform: uppercase;
+      }
+
+      .tab-btn svg {
+        width: 16px;
+        height: 16px;
+        fill: #7f7f7f;
+        transition: fill 0.2s;
+      }
+
+      .tab-btn:hover {
+        color: #b91c1c;
+        background: #eae6dc;
+      }
+
+      .tab-btn:hover svg {
+        fill: #b91c1c;
+      }
+
+      .tab-btn.active {
+        background: #b91c1c;
+        color: #faf8f5;
+        border-color: #b91c1c;
+        box-shadow: 0 4px 10px rgba(185, 28, 28, 0.15);
+      }
+
+      .tab-btn.active svg {
+        fill: #faf8f5;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* VIDEO CONTAINER DENGAN LOADER SPINNER */
+      .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 6px;
+        border: 1px solid #dbd7cd;
+        margin-bottom: 15px;
+        background: #111111;
+      }
+
+      .video-loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 3px solid #222222;
+        border-top: 3px solid #b91c1c;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 0.8s linear infinite;
+        z-index: 1;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
         }
 
-        .header-fixed {
-            flex-shrink: 0;
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      ul {
+        padding-left: 20px;
+        margin: 8px 0;
+      }
+
+      li {
+        margin-bottom: 6px;
+      }
+
+      /* BADGES */
+      .badge {
+        background: #ebe7de;
+        color: #b91c1c;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 12px;
+        border: 1px solid #dbd7cd;
+        font-weight: 600;
+      }
+
+      .badge-custom {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 11px;
+        color: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        display: inline-block;
+        text-align: center;
+        box-sizing: border-box;
+        font-weight: 600;
+      }
+
+      .badge-red {
+        background: #b91c1c;
+        color: #ffffff;
+      }
+
+      .badge-green {
+        background: #059669;
+        color: #ffffff;
+      }
+
+      .badge-brown {
+        background: #78350f;
+        color: #ffffff;
+      }
+
+      .badge-orange {
+        background: #d97706;
+        color: #ffffff;
+      }
+
+      .badge-black {
+        background: #1f2937;
+        color: #ffffff;
+      }
+
+      .badge-yellow {
+        background: #fef08a;
+        color: #854d0e;
+        border: 1px solid #fde047;
+      }
+
+      .no-results {
+        text-align: center;
+        color: #8a8477;
+        padding: 20px;
+        font-size: 13px;
+        font-family: monospace;
+      }
+
+      /* TABEL DIAGRAM KABEL MOTOR */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        font-size: 12px;
+        table-layout: fixed;
+      }
+
+      th,
+      td {
+        border: 1px solid #dbd7cd;
+        padding: 12px;
+        text-align: left;
+        vertical-align: middle;
+        word-wrap: break-word;
+      }
+
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 35%;
+      }
+
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 65%;
+      }
+
+      th {
+        background: #ebe7de;
+        color: #2d2b2a;
+        font-weight: 600;
+        border-bottom: 2px solid #dbd7cd;
+      }
+
+      td {
+        background: #faf8f5;
+        color: #55514e;
+      }
+
+      /* PEMBATAS SEGMEN DIAGRAM */
+      .diagram-divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #b91c1c;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        font-family: monospace;
+        margin: 20px 0 12px 0;
+      }
+
+      .diagram-divider::before,
+      .diagram-divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #dbd7cd;
+      }
+
+      .diagram-divider:not(:empty)::before {
+        margin-right: .5em;
+      }
+
+      .diagram-divider:not(:empty)::after {
+        margin-left: .5em;
+      }
+
+      /* LIST DENGAN KUNCI UKURAN BADGE */
+      .visual-list {
+        list-style: none !important;
+        padding-left: 0 !important;
+        margin: 0;
+      }
+
+      .visual-list li {
+        margin-bottom: 12px;
+        font-size: 11px;
+        line-height: 1.5;
+        display: flex;
+        align-items: center;
+      }
+
+      .visual-list li .badge-custom {
+        width: 95px;
+        flex-shrink: 0;
+        margin-right: 10px;
+      }
+
+      .visual-list li .desc {
+        flex-grow: 1;
+        color: #55514e;
+      }
+
+      /* ==========================================
+   FOOTER DENGAN INTEGRASI KONTAK (SUPPORT)
+   ========================================== */
+      .footer-fixed {
+        flex-shrink: 0;
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px dashed #dbd7cd;
+        /* Garis pembatas putus-putus khas e-reader */
+        text-align: center;
+        font-size: 11px;
+        color: #8a8477;
+        font-family: monospace;
+      }
+
+      /* Mengatur jarak dan posisi tombol kontak */
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        /* Jarak antar tombol */
+        margin-top: 6px;
+      }
+
+      /* Mengatur tampilan teks tombol agar terlihat seperti link aktif */
+      .footer-links a {
+        color: #b91c1c;
+        /* Warna merah kontras */
+        text-decoration: none;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      /* Efek garis bawah saat kursor atau jari menyentuh tombol
+.footer-links a:hover {
+    text-decoration: underline;
+}
+*/
+      /* RESPONSIVE VIEW FOR MOBILE DEVICES */
+      @media screen and (max-width: 480px) {
+
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+          width: 100% !important;
+          box-sizing: border-box;
         }
 
-        /* SEARCH BAR */
-        .search-container {
-            margin-bottom: 15px;
-            position: relative;
-        }
-        .search-input {
-            width: 100%;
-            background: #100a0a;
-            border: 1px solid rgba(255,42,42,0.3);
-            border-radius: 8px;
-            padding: 10px 12px;
-            color: white;
-            font-size: 13px;
-            box-sizing: border-box;
-            transition: border-color 0.2s;
-        }
-        .search-input:focus {
-            outline: none;
-            border-color: #ff2a2a;
-            box-shadow: 0 0 10px rgba(255,42,42,0.3);
+        thead tr {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
         }
 
-        /* PROGRES BAR BACA */
-        .progress-container {
-            width: 100%;
-            height: 3px;
-            background: #221515;
-            margin-bottom: 15px;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: #ff2a2a;
-            box-shadow: 0 0 8px #ff2a2a;
-            transition: width 0.1s ease-out;
+        tr {
+          margin-bottom: 12px;
+          border: 1px solid #dbd7cd;
+          border-radius: 6px;
+          background: #faf8f5;
         }
 
-        /* WADAH KONTEN (SCROLLABLE) */
-        .tab-content-container {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding-right: 5px;
-            scroll-behavior: smooth;
+        td {
+          border: none;
+          border-bottom: 1px solid #ebe7de;
+          position: relative;
+          padding-left: 40%;
         }
 
-        /* SCROLLBAR KUSTOM */
-        .tab-content-container::-webkit-scrollbar { width: 5px; }
-        .tab-content-container::-webkit-scrollbar-track { background: transparent; }
-        .tab-content-container::-webkit-scrollbar-thumb { background: #ff2a2a; border-radius: 10px; }
-
-        /* STRUKTUR AKORDEON */
-        .section {
-            background: rgba(34, 21, 21, 0.6);
-            border-radius:14px;
-            margin-bottom:12px;
-            box-sizing:border-box;
-            border:1px solid rgba(255,42,42,0.08);
-            overflow: hidden;
-            transition: background 0.2s, border-color 0.2s;
+        td::before {
+          position: absolute;
+          top: 12px;
+          left: 12px;
+          width: 35%;
+          color: #2d2b2a;
+          font-weight: 600;
+          content: attr(data-label);
         }
-
-        .accordion-header {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 15px 20px;
-            text-align: left;
-            color: #ff2a2a;
-            font-weight: bold;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0;
-        }
-        .accordion-icon { font-size: 16px; transition: transform 0.25s ease; color: #a89292; }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            padding: 0 20px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* EFEK GLOW */
-        .section.active {
-            background: rgba(45, 22, 22, 0.4);
-            border-color: rgba(255, 42, 42, 0.6);
-            box-shadow: 0 4px 12px rgba(255, 42, 42, 0.15);
-        }
-        .section.active .accordion-content { padding: 0 20px 20px 20px; }
-        .section.active .accordion-icon { transform: rotate(45deg); color: #ff2a2a; }
-        
-        .status{background: rgba(51, 18, 18, 0.8); padding:12px;border-radius:10px;text-align:center;margin-bottom:15px;color:#ff8888;font-weight:bold;border:1px solid rgba(255,42,42,0.25);font-size:14px;letter-spacing: 1px;}
-        .info-text{font-size:12px;color:#a89292;margin-top:2px;margin-bottom:8px;}
-        
-        /* TABS */
-        .tabs-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-        .tab-btn {
-            flex: 1; min-width: 90px; padding: 8px; border: 1px solid rgba(255,42,42,0.2); border-radius: 10px;
-            background: rgba(45, 29, 29, 0.7); color: #a89292; font-size: 12px; font-weight: bold; cursor: pointer; transition: .2s; text-align: center;
-        }
-        .tab-btn:hover { color: white; background: rgba(58, 37, 37, 0.9); }
-        .tab-btn.active {
-            background: #ff2a2a; color: white; border-color: #ff2a2a;
-            box-shadow:0 0 15px rgba(255,42,42,0.4);
-        }
-
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        /* MEDIA INTERFACES & SPINNER */
-        .video-container {
-            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
-            border-radius: 10px; border: 1px solid rgba(255,42,42,0.2); margin-bottom: 15px; background: #0d0606;
-        }
-        /* Spinner Loader */
-        .video-loader {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            border: 4px solid #2d1d1d; border-top: 4px solid #ff2a2a; border-radius: 50%;
-            width: 40px; height: 40px; animation: spin 1s linear infinite; z-index: 1;
-        }
-        @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
-        
-        .video-container iframe { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; z-index: 2;
-            opacity: 0; transition: opacity 0.5s ease;
-        }
-
-        ul { padding-left: 20px; margin: 8px 0; }
-        li { margin-bottom: 6px; }
-        
-        .badge { background: rgba(51, 18, 18, 0.8); color: #ff8888; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px; border: 1px solid rgba(255,42,42,0.15); }
-        .badge-custom { padding: 3px 6px; border-radius: 4px; font-family: monospace; font-size: 11px; color: #ffffff; border: 1px dashed rgba(224, 224, 224, 0.4); display: inline-block; text-align: center; box-sizing: border-box; }
-        .badge-red { background: #4a0d0d; color: #ff9999; }
-        .badge-green { background: #0d3a1a; color: #a3ffa3; }
-        .badge-brown { background: #3e2723; color: #ffccbc; }
-        .badge-orange { background: #5e2900; color: #ffcc80; }
-        .badge-black { background: #050202; border: 1px dashed rgba(255, 255, 255, 0.4); color: #eeeeee; }
-        .badge-yellow { background: rgba(51, 43, 0, 0.8); color: #ffeb7a; border: 1px solid rgba(255,204,0,0.3); }
-
-        .no-results { text-align: center; color: #a89292; padding: 20px; font-size: 14px; }
-
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; table-layout: fixed; }
-        th, td { border: 1px solid rgba(255, 42, 42, 0.15); padding: 12px; text-align: left; vertical-align: middle; word-wrap: break-word; }
-        th:nth-child(1), td:nth-child(1) { width: 35%; }
-        th:nth-child(2), td:nth-child(2) { width: 65%; }
-        th { background: #251111; color: #ff8888; font-weight: bold; }
-        td { background: rgba(22, 15, 15, 0.6); color: #e0cccc; }
-
-        .diagram-divider {
-            display: flex; align-items: center; text-align: center; color: #ff2a2a; 
-            font-size: 11px; font-weight: bold; letter-spacing: 1px; font-family: monospace; margin: 20px 0 12px 0;
-        }
-        .diagram-divider::before, .diagram-divider::after { content: ''; flex: 1; border-bottom: 1px solid rgba(255, 42, 42, 0.3); }
-        .diagram-divider:not(:empty)::before { margin-right: .5em; }
-        .diagram-divider:not(:empty)::after { margin-left: .5em; }
-
-        .visual-list { list-style: none !important; padding-left: 0 !important; margin: 0; }
-        .visual-list li { margin-bottom: 12px; font-size: 11px; line-height: 1.5; display: flex; align-items: center; }
-        .visual-list li .badge-custom { width: 95px; flex-shrink: 0; margin-right: 10px; }
-        .visual-list li .desc { flex-grow: 1; color: #e0cccc; }
-
-        @media screen and (max-width: 480px) {
-            table, thead, tbody, th, td, tr { display: block; width: 100% !important; box-sizing: border-box; }
-            thead tr { position: absolute; top: -9999px; left: -9999px; }
-            tr { margin-bottom: 12px; border: 1px solid rgba(255, 42, 42, 0.2); border-radius: 8px; }
-            td { border: none; border-bottom: 1px solid rgba(255, 42, 42, 0.1); position: relative; padding-left: 40%; }
-            td::before { position: absolute; top: 12px; left: 12px; width: 35%; color: #ff8888; font-weight: bold; content: attr(data-label); }
-        }
+      }
     </style>
-</head>
-<body>
-
-<div class="card">
-    <div class="header-fixed">
+  </head>
+  <body>
+    <div class="card">
+      <div class="header-fixed">
         <div style="text-align:center; margin-bottom:15px;">
-            <div style="font-size:22px; font-weight:bold; color:#ff2a2a; border:2px solid #ff2a2a; display:inline-block; padding:3px 12px; border-radius:8px; margin-bottom:5px;">SECURE</div>
-            <h3 style="margin:5px 0; color:#ff2a2a; font-size: 20px;">RideKey</h3>
-            <div style="color:#ff8888; font-size:12px; letter-spacing:1px;">Smart Keyless Security for Your Ride</div>
-            <div class="info-text">- Powered by Otak-Atik Project -</div>
+          <h3 style="margin:4px 0; color:#2d2b2a; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">RideKey</h3>
+          <div style="color:#b91c1c; font-size:11px; letter-spacing:1px; font-weight: 700; margin-top: 2px;">Smart Keyless Security for Your Ride</div>
+          <div style="color:#55514e; font-size:11px; margin-top: 4px; font-family: monospace;">[ Manual &amp; Dokumentasi ]</div>
         </div>
-
-        <div class="status">MANUAL &amp; DOKUMENTASI</div>
-
         <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="Cari panduan... (misal: kabel, login, bypass)" onkeyup="liveSearch()">
+          <input type="text" id="searchInput" class="search-input" placeholder="Cari (misal: kabel, login, bypass)..." onkeyup="liveSearch()">
+          <svg class="search-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+          </svg>
         </div>
-
         <div class="tabs-container" id="tabsBar">
-            <button class="tab-btn active" onclick="switchTab(event, 'tab-tentang')">Tentang</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-installasi')">Installasi</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-fitur')">Fitur</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-video')">Video Tutorial</button>
+          <button class="tab-btn active" onclick="switchTab(event, 'tab-tentang')">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z" />
+            </svg> Sistem </button>
+          <button class="tab-btn" onclick="switchTab(event, 'tab-installasi')">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+            </svg> Instalasi </button>
+          <button class="tab-btn" onclick="switchTab(event, 'tab-fitur')">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M7 2v11h3v9l7-12h-4l4-8z" />
+            </svg> Fitur </button>
+          <button class="tab-btn" onclick="switchTab(event, 'tab-video')">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55-.45 1 1 1h12c.55 0 childhood-.45-1-1V13.5l4 4v-11l-4 4z" />
+            </svg> Video Tutorial </button>
         </div>
-
         <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
+          <div class="progress-bar" id="progressBar"></div>
         </div>
-    </div>
-
-    <div class="tab-content-container" id="scrollContainer" onscroll="updateProgressBar()">
-        <div id="noResultsMessage" class="no-results" style="display: none;">Kata kunci tidak ditemukan...</div>
-
-        <!-- Konten Tabs tetap sama, namun pada bagian iframe video diperbarui -->
+      </div>
+      <div class="tab-content-container" id="scrollContainer" onscroll="updateProgressBar()">
+        <div id="noResultsMessage" class="no-results" style="display: none;">[ Data tidak ditemukan ]</div>
         <div id="tab-tentang" class="tab-content active">
-             <div class="section">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ Penjelasan Sistem ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <p><strong>RideKey</strong> adalah modul pengaman keyless pintar yang memanfaatkan teknologi pemindaian sinyal Bluetooth Low Energy (BLE). Modul ini bekerja secara otomatis memvalidasi kehadiran Perangkat BLE yang terdaftar sebagai Kunci Pengaman untuk mengaktifkan kelistrikan motor Anda.</p>
-                    <p>Perangkat BLE yang dapat dijadikan sebagai Kunci Pengaman antara lain: Smartwatch, Smart Band, Smart Ring, Smartphone (tergantung smartphonenya), iBeacon, dll).</p>
-                    <p>Sistem ini dirancang tanpa ketergantungan pada internet atau aplikasi eksternal untuk pengoperasian hariannya. Penanganan seluruh konfigurasi dilakukan melalui sistem jaringan mandiri lokal (Captive Portal) yang aman, instan, dan anti-pembajakan.</p>
-                </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ Apa itu RideKey? ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p>
+                <strong>RideKey</strong> adalah modul pengaman keyless pintar yang memanfaatkan teknologi pemindaian sinyal Bluetooth Low Energy (BLE). Modul ini bekerja secara otomatis memvalidasi kehadiran Perangkat BLE yang terdaftar sebagai Kunci Pengaman untuk mengaktifkan kelistrikan motor Anda.
+              </p>
+              <p>Perangkat BLE yang dapat dijadikan sebagai Kunci Pengaman antara lain: Smartwatch, Smart Band, Smart Ring, Smartphone (tergantung smartphonenya), iBeacon, dll).</p>
+              <p>Sistem ini dirancang tanpa ketergantungan pada internet atau aplikasi eksternal untuk pengoperasian hariannya. Penanganan seluruh konfigurasi dilakukan melalui sistem jaringan mandiri lokal (Captive Portal) yang aman, instan, dan anti-pembajakan.</p>
             </div>
-            <div class="section">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ Konfigurasi Default ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <ul>
-                        <li><strong>SSID Wi-Fi:</strong> <span class="badge">RideKey</span></li>
-                        <li><strong>Halaman Konfigurasi:</strong> <span class="badge">http://192.168.4.1</span> atau <span class="badge">www.ridekey.net</span></li>
-                        <li><strong>Kata Sandi Bawaan:</strong> <span class="badge">ridekey123</span> (dapat diubah di halaman konfigurasi)</li>
-                    </ul>
-                </div>
+          </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ Konfigurasi Default ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <ul>
+                <li>
+                  <strong>SSID Wi-Fi:</strong>
+                  <span class="badge">RideKey</span>
+                </li>
+                <li>
+                  <strong>Halaman Konfigurasi:</strong>
+                  <span class="badge">http://192.168.4.1</span> atau <span class="badge">www.ridekey.net</span>
+                </li>
+                <li>
+                  <strong>Kata Sandi Bawaan:</strong>
+                  <span class="badge">ridekey123</span> (dapat diubah di halaman konfigurasi)
+                </li>
+              </ul>
             </div>
+          </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ Diagnostik Suara Buzzer ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p>RideKey menggunakan indikator audio (*buzzer*) untuk membantu Anda mengetahui status modul. Harap perhatikan kecepatan tempo bunyi:</p>
+              <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+                <thead>
+                  <tr>
+                    <th>Pola Bunyi</th>
+                    <th>Status / Arti Sistem</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td data-label="Pola">
+                      <span class="badge" style="color:#b91c1c;">🔊 Beep-Beep</span>
+                      <br>
+                      <small style="color:#8a8477; font-family:monospace;">(2x Cepat)</small>
+                    </td>
+                    <td data-label="Arti">
+                      <strong>Modul Memulai Scan:</strong> Kontak baru di-ON-kan dan sistem mulai mencari Kunci Pengaman.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td data-label="Pola">
+                      <span class="badge" style="color:#059669;">🔊 Beep — Beep</span>
+                      <br>
+                      <small style="color:#8a8477; font-family:monospace;">(2x Jeda Sedang)</small>
+                    </td>
+                    <td data-label="Arti">
+                      <strong>Sistem Aktif:</strong> Kunci Pengaman ditemukan, atau sistem sedang berada di *Valet Mode* / *Bypass Mode*. Motor siap dipakai.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td data-label="Pola">
+                      <span class="badge" style="color:#d97706;">🔊 Beep-Beep-Beep-Beep-Beep</span>
+                      <br>
+                      <small style="color:#8a8477; font-family:monospace;">(5x Cepat)</small>
+                    </td>
+                    <td data-label="Arti">
+                      <strong>Kunci Pengaman Tidak Ditemukan:</strong> Modul gagal mendeteksi Kunci Pengaman dan otomatis mengaktifkan Hotspot Wi-Fi (Access Point) RideKey untuk konfigurasi.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-
         <div id="tab-installasi" class="tab-content">
-             <div class="section">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ Konfigurasi Kabel ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <p>Berikut adalah pemetaan warna kabel pada modul RideKey:</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Warna Kabel</th>
-                                <th>Fungsi / Jalur Sambungan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td data-label="Warna"><span class="badge-custom badge-red" style="width:100%;">Bintik Merah</span></td>
-                                <td data-label="Arti">Power Modul (+12V Keluaran Kunci Kontak)</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Warna"><span class="badge-custom badge-black" style="width:100%;">Bintik Hitam</span></td>
-                                <td data-label="Arti">GND / Massa / Rangka Besi Motor</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Warna"><span class="badge-custom badge-orange" style="width:100%;">Bintik Orange</span></td>
-                                <td data-label="Arti">Input Relay</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Warna"><span class="badge-custom badge-brown" style="width:100%;">Bintik Cokelat</span></td>
-                                <td data-label="Arti">Output Relay</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Warna"><span class="badge-custom badge-green" style="width:100%;">Bintik Hijau</span></td>
-                                <td data-label="Arti">Untuk Tombol Rahasia (Hanya digunakan untuk Reset Pabrik)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ Konfigurasi Kabel ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p>Berikut adalah pemetaan warna kabel pada modul RideKey:</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Warna Kabel</th>
+                    <th>Fungsi / Jalur Sambungan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td data-label="Warna">
+                      <span class="badge-custom badge-red" style="width:100%;">Bintik Merah</span>
+                    </td>
+                    <td data-label="Arti">Power Modul (+12V Keluaran Kunci Kontak)</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Warna">
+                      <span class="badge-custom badge-black" style="width:100%;">Bintik Hitam</span>
+                    </td>
+                    <td data-label="Arti">GND / Massa / Rangka Besi Motor</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Warna">
+                      <span class="badge-custom badge-orange" style="width:100%;">Bintik Orange</span>
+                    </td>
+                    <td data-label="Arti">Input Relay</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Warna">
+                      <span class="badge-custom badge-brown" style="width:100%;">Bintik Cokelat</span>
+                    </td>
+                    <td data-label="Arti">Output Relay</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Warna">
+                      <span class="badge-custom badge-green" style="width:100%;">Bintik Hijau</span>
+                    </td>
+                    <td data-label="Arti">Untuk Tombol Rahasia (Hanya digunakan untuk Reset Pabrik)</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="section">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ Pemasangan Pada Motor : OPSI 1 ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <p><strong>[ Sistem Potong Kunci Kontak ]</strong></p>
-                    <p>Opsi ini memutus jalur aliran listrik utama langsung dari kunci kontak utama motor Anda.</p>
-                    <ul>
-                        <li>Potong kabel keluaran (+12V) pada kunci kontak motor.</li>
-                        <li>Sambungkan kabel <span class="badge-custom badge-red">Bintik Merah</span> dan <span class="badge-custom badge-orange">Bintik Orange</span> ke ujung kabel keluaran (+12V) dari Kunci Kontak (yang tadi dipotong).</li>
-                        <li>Sambungkan kabel <span class="badge-custom badge-brown">Bintik Cokelat</span> ke ujung kabel potongan satunya (yang menuju ke sistem kelistrikan/beban motor).</li>
-                        <li>Sambungkan kabel <span class="badge-custom badge-black">Bintik Hitam</span> ke rangka motor/massa (GND).</li>
-                        <li>Untuk kabel <span class="badge-custom badge-green">Bintik Hijau</span> tidak wajib dipasang, fungsinya hanya untuk factory reset saat lupa sandi, jika ingin dipasang, disarankan untuk dipasang/digabung dengan out saklar klakson.</li>
-                    </ul>
-
-                    <div class="diagram-divider">✂️ SKEMA UNTUK OPSI 1</div>
-                    <div style="font-family: monospace; color: #fff; margin: 5px 0; box-sizing: border-box;">
-                        <div style="display: flex; align-items: center; justify-content: center; background: #070303; padding: 10px; border-radius: 8px; border: 1px dashed #331212; margin-bottom: 8px;">
-                            <div style="text-align: center; width: 40%; background: #2d1d1d; border: 1px solid #ff2a2a; padding: 6px; font-size: 10px; border-radius: 4px;">[ SISI KONTAK ]<br>KELUARAN (+12V)</div>
-                            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; margin: 0 3px;">
-                                <div style="width: 25%; height: 3px; background: #bc1313;"></div>
-                                <div style="font-size: 12px; margin: 0 2px;">✂️</div>
-                                <div style="width: 25%; height: 3px; background: #bc1313;"></div>
-                            </div>
-                            <div style="text-align: center; width: 40%; background: #1a1a1a; border: 1px solid #444; padding: 6px; font-size: 10px; border-radius: 4px; color: #aaa;">[ SISI MOTOR ]<br>Kelistrikan Motor</div>
-                        </div>
-                        <div style="background: #070303; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,42,42,0.1); font-size: 11px; line-height: 1.5;">
-                            <ul class="visual-list">
-                                <li>
-                                    <span class="badge-custom badge-red">Bintik Merah</span>
-                                    <div class="desc">➔ Sisi potongan kunci kontak (+12V)</div>
-                                </li>
-                                <li>
-                                    <span class="badge-custom badge-orange">Bintik Orange</span>
-                                    <div class="desc">➔ Sisi potongan kunci kontak (+12V), gabung dengan kabel <span class="badge-custom badge-red">Bintik Merah</span></div>
-                                </li>
-                                <li>
-                                    <span class="badge-custom badge-brown">Bintik Cokelat</span>
-                                    <div class="desc">➔ Sisi potongan kelistrikan motor</div>
-                                </li>
-                                <li>
-                                    <span class="badge-custom badge-black">Bintik Hitam</span>
-                                    <div class="desc">➔ Baut rangka besi motor (GND/Massa)</div>
-                                </li>
-                                <li>
-                                    <span class="badge-custom badge-green">Bintik Hijau</span>
-                                    <div class="desc">➔ Tidak wajib dipasang, jika ingin dipasang, gabungkan/cangkokan dengan out saklar klakson</div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="doc-image" style="display: none;"></div>
-                    <div class="info-text" style="margin-top: 10px;">*Efek OPSI 1: Saat kunci kontak diputar ke posisi <span class="badge">ON</span>, lampu utama dan panel instrumen speedometer mati total sebelum Kunci Pengaman terdeteksi.</div>
-</div>
-</div>
-<div class="section">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ Pemasangan Pada Motor : OPSI 2 ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <p><strong>[ Sistem Potong Standar Samping ]</strong></p>
-                    <p>Opsi ini memutus jalur aman mesin via standar samping.</p>
-                    <ul>
-                        <li>Cangkok (paralel) kabel <span class="badge-custom badge-red">Bintik Merah</span> ke kabel keluaran kunci kontak (+12V) tanpa memotong kabel tersebut.</li>
-                        <li>Sambungkan kabel <span class="badge-custom badge-black">Bintik Hitam</span> ke rangka motor/massa (GND).</li>
-                        <li>Potong kabel salah satu jalur switch standar samping motor Anda.</li>
-                        <li>Sambungkan kabel <span class="badge-custom badge-orange">Bintik Orange</span> ke potongan kabel standar samping yang mengarah ke atas (menuju ECU/CDI).</li>
-                        <li>Sambungkan kabel <span class="badge-custom badge-brown">Bintik Cokelat</span> ke potongan kabel satunya yang mengarah ke bawah (menuju Saklar/Switch Standar Samping).</li>
-                    </ul>
-
-                    <div class="diagram-divider orange-theme">✂️ SKEMA UNTUK OPSI 2</div>
-                    <div style="font-family: monospace; color: #fff; margin: 5px 0; box-sizing: border-box;">
-                        <div style="display: flex; align-items: center; justify-content: center; background: #070303; padding: 10px; border-radius: 8px; border: 1px dashed #331c12; margin-bottom: 8px;">
-                            <div style="text-align: center; width: 40%; background: #231912; border: 1px solid #ff6c00; padding: 6px; font-size: 10px; border-radius: 4px; color:#ffaf7a;">[ SISI ATAS ]<br>ECU/CDI</div>
-                            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; margin: 0 3px;">
-                                <div style="width: 25%; height: 3px; background: #3498db;"></div>
-                                <div style="font-size: 12px; margin: 0 2px;">✂️</div>
-                                <div style="width: 25%; height: 3px; background: #3498db;"></div>
-                            </div>
-                            <div style="text-align: center; width: 40%; background: #1a1a1a; border: 1px solid #444; padding: 6px; font-size: 10px; border-radius: 4px; color: #aaa;">[ SISI BAWAH ]<br>Saklar Standar</div>
-                        </div>
-                        <div style="background: #070303; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,108,0,0.1); font-size: 11px; line-height: 1.5;">
-                            <ul class="visual-list">
-                                <li>
-                                    <span class="badge-custom badge-red">Bintik Merah</span>
-                                    <div class="desc">➔ Cangkok ke kabel keluaran Kunci Kontak (+12V)</div>
-                                </li>
-                                <li>
-                                    <span class="badge-custom badge-black">Bintik Hitam</span>
-                                    <div class="desc">➔ Baut rangka besi motor (GND/Massa)</div>
-                                </li>
-                                <li>
-                                    <span class="badge-custom badge-orange">Bintik Orange</span>
-                                    <div class="desc">➔ Kabel potongan atas arah ECU/CDI</div>
-                                </li>
-                                <li>
-                                    <span class="badge-custom badge-brown">Bintik Cokelat</span>
-                                    <div class="desc">➔ Kabel potongan bawah arah saklar</div>
-                                </li>
-                                <li>
-                                    <span class="badge-custom badge-green">Bintik Hijau</span>
-                                    <div class="desc">➔ Tidak wajib dipasang, jika ingin dipasang, gabungkan/cangkokan dengan out saklar klakson</div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="info-text" style="margin-top: 10px;">*Efek OPSI 2: Saat kunci kontak diputar ke posisi <span class="badge">ON</span>, panel speedometer dan lampu motor menyala normal, namun mesin sama sekali tidak bisa di-stater (di-starter tangan maupun kick starter) sebelum Kunci Pengaman terdeteksi.</div>
+          </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ Skema Motor : OPSI 1 ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p>
+                <strong>[ Sistem Potong Kunci Kontak ]</strong>
+              </p>
+              <p>Opsi ini memutus jalur aliran listrik utama langsung dari kunci kontak utama motor Anda.</p>
+              <ul>
+                <li>Potong kabel keluaran (+12V) pada kunci kontak motor.</li>
+                <li>Sambungkan kabel <span class="badge-custom badge-red">Bintik Merah</span> dan <span class="badge-custom badge-orange">Bintik Orange</span> ke ujung kabel keluaran (+12V) dari Kunci Kontak (yang tadi dipotong). </li>
+                <li>Sambungkan kabel <span class="badge-custom badge-brown">Bintik Cokelat</span> ke ujung kabel potongan satunya (yang menuju ke sistem kelistrikan/beban motor). </li>
+                <li>Sambungkan kabel <span class="badge-custom badge-black">Bintik Hitam</span> ke rangka motor/massa (GND). </li>
+                <li>Untuk kabel <span class="badge-custom badge-green">Bintik Hijau</span> tidak wajib dipasang, fungsinya hanya untuk factory reset saat lupa sandi, jika ingin dipasang, digabung dengan out saklar klakson. </li>
+              </ul>
+              <div class="diagram-divider">✂️ DIAGRAM WIRING OPSI 1</div>
+              <div style="font-family: monospace; margin: 5px 0; box-sizing: border-box;">
+                <div style="display: flex; align-items: center; justify-content: center; background: #ebe7de; padding: 10px; border-radius: 6px; border: 1px dashed #cbd5e1; margin-bottom: 8px;">
+                  <div style="text-align: center; width: 40%; background: #faf8f5; border: 1px solid #b91c1c; padding: 6px; font-size: 10px; border-radius: 4px; color: #2d2b2a; font-weight: bold;">[ SISI KONTAK ] <br>KELUARAN (+12V) </div>
+                  <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; margin: 0 3px;">
+                    <div style="width: 25%; height: 1px; background: #b91c1c;"></div>
+                    <div style="font-size: 11px; margin: 0 2px;">✂️</div>
+                    <div style="width: 25%; height: 1px; background: #b91c1c;"></div>
+                  </div>
+                  <div style="text-align: center; width: 40%; background: #faf8f5; border: 1px solid #dbd7cd; padding: 6px; font-size: 10px; border-radius: 4px; color: #55514e;">[ SISI MOTOR ] <br>MAIN BEBAN </div>
                 </div>
+                <div style="background: #ebe7de; padding: 12px; border-radius: 6px; border: 1px solid #dbd7cd; font-size: 11px; line-height: 1.5;">
+                  <ul class="visual-list">
+                    <li>
+                      <span class="badge-custom badge-red">Bintik Merah</span>
+                      <div class="desc">➔ Sisi potongan kunci kontak (+12V)</div>
+                    </li>
+                    <li>
+                      <span class="badge-custom badge-orange">Bintik Orange</span>
+                      <div class="desc">➔ Sisi potongan kunci kontak (+12V), gabung dengan kabel <span class="badge-custom badge-red">Bintik Merah</span>
+                      </div>
+                    </li>
+                    <li>
+                      <span class="badge-custom badge-brown">Bintik Cokelat</span>
+                      <div class="desc">➔ Sisi potongan kelistrikan motor</div>
+                    </li>
+                    <li>
+                      <span class="badge-custom badge-black">Bintik Hitam</span>
+                      <div class="desc">➔ Baut rangka besi motor (GND/Massa)</div>
+                    </li>
+                    <li>
+                      <span class="badge-custom badge-green">Bintik Hijau</span>
+                      <div class="desc">➔ Jalur Opsional (Tidak wajib dipasang)</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="info-text" style="margin-top: 10px; text-align: left;">*Efek OPSI 1: Saat kunci kontak diputar ke posisi <span class="badge">ON</span>, lampu utama dan panel instrumen speedometer mati total sebelum Kunci Pengaman terdeteksi. </div>
             </div>
+          </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ Skema Motor : OPSI 2 ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p>
+                <strong>[ Sistem Potong Standar Samping ]</strong>
+              </p>
+              <p>Opsi ini memutus jalur aman mesin via standar samping.</p>
+              <ul>
+                <li>Cangkok (paralel) kabel <span class="badge-custom badge-red">Bintik Merah</span> ke kabel keluaran kunci kontak (+12V) tanpa memotong kabel tersebut. </li>
+                <li>Sambungkan kabel <span class="badge-custom badge-black">Bintik Hitam</span> ke rangka motor/massa (GND). </li>
+                <li>Potong kabel salah satu jalur switch standar samping motor Anda.</li>
+                <li>Sambungkan kabel <span class="badge-custom badge-orange">Bintik Orange</span> ke potongan kabel standar samping yang mengarah ke atas (menuju ECU/CDI). </li>
+                <li>Sambungkan kabel <span class="badge-custom badge-brown">Bintik Cokelat</span> ke potongan kabel satunya yang mengarah ke bawah (menuju Saklar/Switch Standar Samping). </li>
+                <li>Untuk kabel <span class="badge-custom badge-green">Bintik Hijau</span> tidak wajib dipasang, fungsinya hanya untuk factory reset saat lupa sandi, jika ingin dipasang, digabung dengan out saklar klakson. </li>
+              </ul>
+              <div class="diagram-divider">✂️ DIAGRAM WIRING OPSI 2</div>
+              <div style="font-family: monospace; margin: 5px 0; box-sizing: border-box;">
+                <div style="display: flex; align-items: center; justify-content: center; background: #ebe7de; padding: 10px; border-radius: 6px; border: 1px dashed #cbd5e1; margin-bottom: 8px;">
+                  <div style="text-align: center; width: 40%; background: #faf8f5; border: 1px solid #dbd7cd; padding: 6px; font-size: 10px; border-radius: 4px; color:#2d2b2a; font-weight: bold;">[ SISI ATAS ] <br>ECU / CDI </div>
+                  <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; margin: 0 3px;">
+                    <div style="width: 25%; height: 1px; background: #b91c1c;"></div>
+                    <div style="font-size: 11px; margin: 0 2px;">✂️</div>
+                    <div style="width: 25%; height: 1px; background: #b91c1c;"></div>
+                  </div>
+                  <div style="text-align: center; width: 40%; background: #faf8f5; border: 1px solid #dbd7cd; padding: 6px; font-size: 10px; border-radius: 4px; color: #55514e;">[ SISI BAWAH ] <br>SWITCH / SAKLAR </div>
+                </div>
+                <div style="background: #ebe7de; padding: 12px; border-radius: 6px; border: 1px solid #dbd7cd; font-size: 11px; line-height: 1.5;">
+                  <ul class="visual-list">
+                    <li>
+                      <span class="badge-custom badge-red">Bintik Merah</span>
+                      <div class="desc">➔ Cangkok ke kabel keluaran Kunci Kontak (+12V)</div>
+                    </li>
+                    <li>
+                      <span class="badge-custom badge-black">Bintik Hitam</span>
+                      <div class="desc">➔ Baut rangka besi motor (GND/Massa)</div>
+                    </li>
+                    <li>
+                      <span class="badge-custom badge-orange">Bintik Orange</span>
+                      <div class="desc">➔ Kabel potongan atas arah ECU/CDI</div>
+                    </li>
+                    <li>
+                      <span class="badge-custom badge-brown">Bintik Cokelat</span>
+                      <div class="desc">➔ Kabel potongan bawah arah saklar</div>
+                    </li>
+                    <li>
+                      <span class="badge-custom badge-green">Bintik Hijau</span>
+                      <div class="desc">➔ Jalur Opsional (Tidak wajib dipasang)</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="info-text" style="margin-top: 10px; text-align: left;">*Efek OPSI 2: Saat kunci kontak diputar ke posisi <span class="badge">ON</span>, panel speedometer dan lampu motor menyala normal, namun mesin sama sekali tidak bisa di-stater (di-starter tangan maupun kick starter) sebelum Kunci Pengaman terdeteksi. </div>
+            </div>
+          </div>
         </div>
-
         <div id="tab-fitur" class="tab-content">
-             <div class="section">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ 1. Smart Keyless Scan ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <p>Saat kunci kontak diputar ke posisi <span class="badge">ON</span>, RideKey otomatis melakukan 3 siklus pemindaian kilat mencari MAC Address Kunci Pengaman yang terdaftar. Jika ditemukan, sistem akan mengaktifkan kelistrikan motor secara instan.</p>
-                </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ 1. Smart Keyless ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p>Saat kunci kontak diputar ke posisi <span class="badge">ON</span>, RideKey otomatis melakukan 3 siklus pemindaian kilat mencari MAC Address Kunci Pengaman yang terdaftar. Jika ditemukan, sistem akan mengaktifkan kelistrikan motor secara instan. </p>
             </div>
-            <div class="section" style="border: 1px solid rgba(255,42,42,0.15);">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ 2. Anti-Begal ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <p>Fitur perlindungan aktif saat berkendara. Jika aktif, sistem akan terus memindai Kunci Pengaman dalam interval tertentu. Jika motor terpisah dari Kunci Pengaman (misal: modus perampasan):</p>
-                    <ul>
-                        <li>Detik 30-45: Peringatan senyap & pemindaian kilat.</li>
-                        <li>Detik 45-60: Buzzer berbunyi intermiten memberi peringatan awal sambari terus melakukan pemindaian kilat.</li>
-                        <li>Detik 60+: Kelistrikan motor <strong>diputus total</strong> dan alarm internal (Buzzer) berbunyi secara terus menerus.</li>
-                    </ul>
-                </div>
+          </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ 2. Anti-Begal ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p>Fitur perlindungan aktif saat berkendara. Jika aktif, sistem akan terus memindai Kunci Pengaman dalam interval tertentu. Jika motor terpisah dari Kunci Pengaman (misal: modus perampasan):</p>
+              <ul>
+                <li>Detik 30-45: Peringatan senyap & pemindaian kilat.</li>
+                <li>Detik 45-60: Buzzer berbunyi intermiten memberi peringatan awal sambari terus melakukan pemindaian kilat.</li>
+                <li>Detik 60+: Kelistrikan motor <strong>diputus total</strong> dan alarm internal (Buzzer) berbunyi secara terus menerus. </li>
+              </ul>
             </div>
-            <div class="section" style="border: 1px solid rgba(255,108,0,0.15);">
-                <button class="accordion-header" onclick="toggleAccordion(this)" style="color: #ff6c00;">
-                    [ 3. Valet Mode ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <p>Mode khusus saat motor akan ditinggal di bengkel atau tempat pencucian. Jika aktif, kelistrikan akan aktif secara permanen tanpa perlu memindai Kunci Pengaman, memastikan mekanik dapat menyalakan motor dengan bebas tanpa gangguan.</p>
-                </div>
+          </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ 3. Valet Mode ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p>Mode khusus saat motor akan ditinggal di bengkel atau tempat pencucian. Jika aktif, kelistrikan akan aktif secara permanen tanpa perlu memindai Kunci Pengaman, memastikan mekanik dapat menyalakan motor dengan bebas tanpa gangguan.</p>
             </div>
-            <div class="section" style="border: 1px solid rgba(255,204,0,0.15);">
-                <button class="accordion-header" onclick="toggleAccordion(this)" style="color: #ffcc00;">
-                    [ 4. Bypass ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <p>Jika Kunci Pengaman hilang atau rusak di perjalanan, pemilik dapat masuk ke halaman konfigurasi dan memicu mode <span class="badge badge-yellow">BYPASS</span>. Kelistrikan akan diaktifkan secara darurat saat sistem dijalankan ulang tanpa memerlukan Kunci Pengaman.</p>
-                </div>
+          </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ 4. Emergency Bypass ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p>Jika Kunci Pengaman hilang atau rusak di perjalanan, pemilik dapat masuk ke halaman konfigurasi dan memicu mode <span class="badge badge-yellow">BYPASS</span>. Kelistrikan akan diaktifkan secara darurat saat sistem dijalankan ulang tanpa memerlukan Kunci Pengaman. </p>
             </div>
-            <div class="section">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ 5. Hard Reset ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <p>Menekan dan menahan tombol rahasia <span class="badge-custom badge-green">Kabel Bintik Hijau</span> selama 5 detik berturut-turut saat *startup* akan memicu pembersihan memori flash dan mengembalikan setelan RideKey ke pengaturan pabrik.</p>
-                </div>
+          </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ 5. Hard Reset ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p>Menekan dan menahan tombol rahasia <span class="badge-custom badge-green">Kabel Bintik Hijau</span> selama 5 detik berturut-turut saat *startup* akan memicu pembersihan memori flash dan mengembalikan setelan RideKey ke pengaturan pabrik. </p>
             </div>
+          </div>
         </div>
-
         <div id="tab-video" class="tab-content">
-            <div class="section">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ Login Halaman Konfigurasi ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div class="video-container">
-                        <div class="video-loader"></div>
-                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" onload="videoSelesaiPemuatan(this)"></iframe>
-                    </div>
-<div class="info-text" style="margin-top: 10px;">*Untuk smartphone yang tidak otomatis membuka halaman login saat terhubung ke WiFi RideKey, atau yang mengalami masalah seperti tombol-tombol di halaman konfigurasi yang tidak bisa diklik, silahkan ikuti cara di bawah ini:</div>
-<ul>
-<li>Matikan data seluler</li>
-<li>Hubungkan ke WiFi <span class="badge">RideKey</span></li>
-<li>Jika ada popup/pemberitahuan yang menyatakan "<span class="badge">Jaringan/WiFi ini tidak memiliki akses internet. Tetap hubungkan?</span>", jawab <span class="badge">Ya</span></li>
-<li>Buka Chrome ➔ akses <span class="badge">http://193.168.4.1</span> atau <span class="badge">www.ridekey.net</span></li>
-</ul>
-                </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ Video: Login Konfigurasi ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <div class="video-container" data-video-id="wVfTHDhaU9I">
+                <div class="video-loader"></div>
+              </div>
+              <div style="margin-top: 15px; background: #ebe7de; padding: 12px; border-radius: 6px; border: 1px solid #dbd7cd; font-size: 12px; line-height: 1.6;">
+                <div style="color: #b91c1c; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; gap: 5px;"> ⚠️ JIKA HALAMAN LOGIN TIDAK MUNCUL OTOMATIS / TOMBOL MACET: </div>
+                <ol style="margin: 0; padding-left: 20px; color: #2d2b2a;">
+                  <li>
+                    <strong>Matikan Data Seluler</strong> di HP Anda terlebih dahulu.
+                  </li>
+                  <li>Hubungkan kembali ke WiFi <span class="badge">RideKey</span>. </li>
+                  <li>Jika ada pop-up pemberitahuan "WiFi tidak memiliki akses internet. Tetap hubungkan?", pilih <strong>YA / TETAP HUBUNGKAN</strong>. </li>
+                  <li>
+                    <strong>Periksa Notifikasi HP:</strong> Jika muncul notifikasi sistem untuk masuk/login jaringan, <u>cukup klik notifikasi tersebut</u> untuk membuka halaman login.
+                  </li>
+                  <li>Jika notifikasi tidak ada, buka browser <strong>Chrome</strong> (Android) atau <strong>Safari</strong> (iPhone), lalu ketik manual: <span class="badge">http://192.168.4.1</span> atau <span class="badge">www.ridekey.net</span>
+                  </li>
+                </ol>
+              </div>
             </div>
-            <!-- Ulangi pola di atas untuk semua iframe video lainnya -->
-            <div class="section">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ Pairing / Ubah Kunci Pengaman ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div class="video-container">
-                        <div class="video-loader"></div>
-                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" onload="videoSelesaiPemuatan(this)"></iframe>
-                    </div>
-                </div>
+          </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ Video: Pairing Kunci BLE ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <div class="video-container" data-video-id="wVfTHDhaU9I">
+                <div class="video-loader"></div>
+              </div>
             </div>
-            <div class="section">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ BYPASS ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div class="video-container">
-                        <div class="video-loader"></div>
-                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" onload="videoSelesaiPemuatan(this)"></iframe>
-                    </div>
-                </div>
+          </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ Video: Mode BYPASS ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <div class="video-container" data-video-id="wVfTHDhaU9I">
+                <div class="video-loader"></div>
+              </div>
             </div>
-            <div class="section">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    [ ANTI-BEGAL & VALET MODE ] <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div class="video-container">
-                        <div class="video-loader"></div>
-                        <iframe src="https://www.youtube.com/embed/wVfTHDhaU9I" onload="videoSelesaiPemuatan(this)"></iframe>
-                    </div>
-                </div>
+          </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ Video: Anti-Begal &amp; Valet ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <div class="video-container" data-video-id="wVfTHDhaU9I">
+                <div class="video-loader"></div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+      <div class="footer-fixed">
+        <div>Made with ❤️ by Otak-Atik Project</div>
+        <div class="footer-links">
+          <a href="https://wa.me/6285323776010" target="_blank"> 💬 Hubungi Kami </a>
+        </div>
+      </div>
     </div>
-</div>
-
-<script>
-    function videoSelesaiPemuatan(iframe) {
+    <script>
+      function videoSelesaiPemuatan(iframe) {
         const loader = iframe.previousElementSibling;
-        loader.style.display = 'none';
+        if (loader) loader.style.display = 'none';
         iframe.style.opacity = '1';
-    }
+      }
 
-    function stopAllVideos() {
-        const iframes = document.querySelectorAll('.video-container iframe');
-        iframes.forEach(iframe => {
-            const currentSrc = iframe.src;
-            iframe.src = "";  
-            iframe.src = currentSrc;
-            iframe.style.opacity = '0';
-            iframe.previousElementSibling.style.display = 'block';
+      function stopAllVideos() {
+        const containers = document.querySelectorAll('.video-container');
+        containers.forEach(container => {
+          container.innerHTML = ' < div class = "video-loader" >< /div>';
         });
-    }
+      }
 
-    // ... (Fungsi toggleAccordion, switchTab, liveSearch, updateProgressBar tetap sama) ...
-    function toggleAccordion(headerButton) {
+      function toggleAccordion(headerButton) {
         const section = headerButton.parentElement;
         const content = headerButton.nextElementSibling;
         const isOpen = section.classList.contains('active');
         const container = document.getElementById('scrollContainer');
-        
         if (isOpen) {
-            content.style.maxHeight = null;
-            section.classList.remove('active');
-            stopAllVideos();
+          content.style.maxHeight = null;
+          section.classList.remove('active');
+          stopAllVideos();
         } else {
-            const currentTab = section.parentElement;
-            const siblingSections = currentTab.querySelectorAll('.section');
-            stopAllVideos();
-            siblingSections.forEach(s => {
-                s.classList.remove('active');
-                const c = s.querySelector('.accordion-content');
-                if(c) c.style.maxHeight = null;
+          const currentTab = section.parentElement;
+          const siblingSections = currentTab.querySelectorAll('.section');
+          stopAllVideos();
+          siblingSections.forEach(s => {
+            s.classList.remove('active');
+            const c = s.querySelector('.accordion-content');
+            if (c) c.style.maxHeight = null;
+          });
+          const videoContainer = content.querySelector('.video-container');
+          if (videoContainer) {
+            const videoId = videoContainer.getAttribute('data-video-id');
+            videoContainer.innerHTML = `
+                    
+										
+													<div class="video-loader"></div>
+													<iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>
+                `;
+          }
+          content.style.maxHeight = content.scrollHeight + "px";
+          section.classList.add('active');
+          setTimeout(() => {
+            const targetOffset = section.offsetTop - container.offsetTop;
+            container.scrollTo({
+              top: targetOffset,
+              behavior: 'smooth'
             });
-            content.style.maxHeight = content.scrollHeight + "px";
-            section.classList.add('active');
-            setTimeout(() => {
-                const targetOffset = section.offsetTop - container.offsetTop;
-                container.scrollTo({ top: targetOffset, behavior: 'smooth' });
-            }, 380);
+          }, 380);
         }
         setTimeout(updateProgressBar, 360);
-    }
+      }
 
-    function switchTab(event, tabId) {
+      function switchTab(event, tabId) {
         document.getElementById('searchInput').value = "";
         stopAllVideos();
         const tabs = document.querySelectorAll('.tab-btn');
         tabs.forEach(tab => tab.classList.remove('active'));
         const contents = document.querySelectorAll('.tab-content');
         contents.forEach(content => {
-            content.classList.remove('active');
-            const sections = content.querySelectorAll('.section');
-            sections.forEach(s => {
-                s.style.display = "block";
-                s.classList.remove('active');
-                const c = s.querySelector('.accordion-content');
-                if(c) c.style.maxHeight = null;
-            });
+          content.classList.remove('active');
+          const sections = content.querySelectorAll('.section');
+          sections.forEach(s => {
+            s.style.display = "block";
+            s.style.opacity = "1";
+            s.classList.remove('active');
+            const c = s.querySelector('.accordion-content');
+            if (c) c.style.maxHeight = null;
+          });
         });
         document.getElementById('noResultsMessage').style.display = "none";
         document.getElementById('tabsBar').style.display = "flex";
-        if(event) event.currentTarget.classList.add('active');
+        if (event) event.currentTarget.classList.add('active');
         document.getElementById(tabId).classList.add('active');
         const container = document.getElementById('scrollContainer');
         container.scrollTop = 0;
         updateProgressBar();
-    }
+      }
 
-    function liveSearch() {
+      function liveSearch() {
         const input = document.getElementById('searchInput').value.toLowerCase();
         const sections = document.querySelectorAll('.section');
         const tabsBar = document.getElementById('tabsBar');
@@ -606,40 +1100,61 @@
         const noResults = document.getElementById('noResultsMessage');
         let totalVisible = 0;
         if (input.trim() === "") {
-            const activeTabBtn = document.querySelector('.tab-btn.active');
-            const activeTabId = activeTabBtn.getAttribute('onclick').match(/'([^']+)'/)[1];
-            switchTab(null, activeTabId);
-            activeTabBtn.classList.add('active');
-            return;
+          const activeTabBtn = document.querySelector('.tab-btn.active');
+          const activeTabId = activeTabBtn.getAttribute('onclick').match(/'([^']+)'/)[1];
+          switchTab(null, activeTabId);
+          activeTabBtn.classList.add('active');
+          return;
         }
         stopAllVideos();
         tabsBar.style.display = "none";
         contents.forEach(content => content.classList.add('active'));
         sections.forEach(section => {
-            const headerText = section.querySelector('.accordion-header').innerText.toLowerCase();
-            const contentText = section.querySelector('.accordion-content').innerText.toLowerCase();
-            const fullText = headerText + " " + contentText;
-            if (fullText.includes(input)) {
-                section.style.display = "block";
-                const content = section.querySelector('.accordion-content');
-                if(content) { content.style.maxHeight = content.scrollHeight + "px"; }
-                section.classList.add('active');
-                totalVisible++;
-            } else {
-                section.style.display = "none";
+          const headerText = section.querySelector('.accordion-header').innerText.toLowerCase();
+          const contentText = section.querySelector('.accordion-content').innerText.toLowerCase();
+          const fullText = headerText + " " + contentText;
+          if (fullText.includes(input)) {
+            section.style.display = "block";
+            setTimeout(() => {
+              section.style.opacity = "1";
+            }, 10);
+            const content = section.querySelector('.accordion-content');
+            if (content) {
+              content.style.maxHeight = content.scrollHeight + "px";
             }
+            const videoContainer = section.querySelector('.video-container');
+            if (videoContainer && videoContainer.innerHTML.includes('video-loader') && !videoContainer.innerHTML.includes('iframe')) {
+              const videoId = videoContainer.getAttribute('data-video-id');
+              videoContainer.innerHTML = `
+                        
+										
+													<div class="video-loader"></div>
+													<iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>
+                    `;
+            }
+            section.classList.add('active');
+            totalVisible++;
+          } else {
+            section.style.opacity = "0";
+            section.style.display = "none";
+          }
         });
         noResults.style.display = (totalVisible === 0) ? "block" : "none";
         updateProgressBar();
-    }
+      }
 
-    function updateProgressBar() {
+      function updateProgressBar() {
         const container = document.getElementById('scrollContainer');
         const progressBar = document.getElementById('progressBar');
         const scrollTop = container.scrollTop;
         const docHeight = container.scrollHeight - container.clientHeight;
-        progressBar.style.width = docHeight > 0 ? (scrollTop / docHeight) * 100 + '%' : '0%';
-    }
-</script>
-</body>
+        if (docHeight > 0) {
+          const scrollPercent = (scrollTop / docHeight) * 100;
+          progressBar.style.width = scrollPercent + '%';
+        } else {
+          progressBar.style.width = '0%';
+        }
+      }
+    </script>
+  </body>
 </html>
