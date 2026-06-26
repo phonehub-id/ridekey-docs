@@ -550,11 +550,10 @@
         gap: 4px;
       }
 
-      /* Efek garis bawah saat kursor atau jari menyentuh tombol
-.footer-links a:hover {
-    text-decoration: underline;
-}
-*/
+      .footer-links a:hover {
+         text-decoration: underline;
+      }
+
       /* RESPONSIVE VIEW FOR MOBILE DEVICES */
       @media screen and (max-width: 480px) {
 
@@ -738,7 +737,7 @@
                       <small style="color:#8a8477; font-family:monospace;">(2x Cepat)</small>
                     </td>
                     <td data-label="Arti">
-                      <strong>Modul Memulai Scan:</strong> Kontak baru di-ON-kan dan sistem mulai mencari Kunci Pengaman.
+                      <strong>Modul Memulai Scan:</strong> Kontak diputar ke posisi <span class="badge">ON</span> dan sistem mulai mencari Kunci Pengaman.
                     </td>
                   </tr>
                   <tr>
@@ -774,12 +773,12 @@
               <p style="margin-top: 0;">Agar modul RideKey berjalan 100% lancar tanpa kendala, harap perhatikan dua aturan karakteristik BLE berikut:</p>
               <div style="background: #ebe7de; padding: 12px; border-radius: 4px; border: 1px solid #dbd7cd; margin-bottom: 10px;">
                 <strong style="color: #b91c1c;">⌚ Pengguna Smartwatch / Smart Band / Smart Ring:</strong>
-                <p style="margin: 5px 0 0 0; font-size: 12px; line-height: 1.5;"> Jika perangkat pintar Anda dijadikan Kunci Pengaman, <strong>matikan sementara Bluetooth pada HP Anda</strong> sebelum dan selama berkendara. Umumnya BLE hanya bisa terhubung ke 1 perangkat. Jika smartwatch/smart band/smart ring Anda masih terhubung ke HP, sinyalnya akan "terkunci" dan tidak akan bisa terdeteksi oleh modul RideKey. </p>
+                <p style="margin: 5px 0 0 0; font-size: 12px; line-height: 1.5;"> Jika perangkat pintar Anda dijadikan Kunci Pengaman, <strong>matikan Bluetooth pada HP Anda</strong> sebelum dan selama berkendara. Umumnya perangkat BLE hanya bisa terhubung ke 1 perangkat. Jika smartwatch/smart band/smart ring Anda masih terhubung ke HP, sinyalnya akan "terkunci" dan tidak akan bisa terdeteksi oleh modul RideKey. </p>
               </div>
               <div style="background: #ebe7de; padding: 12px; border-radius: 4px; border: 1px solid #dbd7cd;">
                 <strong style="color: #b91c1c;">🏷️ Pengguna iTag Bawaan:</strong>
                 <p style="margin: 5px 0 0 0; font-size: 12px; line-height: 1.6;"> Sangat disarankan untuk <strong>mematikan (turn off) perangkat iTag Anda saat motor sedang tidak digunakan</strong> atau saat ditinggal tidur di malam hari. Hal ini sangat efektif untuk menghemat daya baterai kancing di dalam iTag agar tidak cepat habis karena terus-menerus memancarkan sinyal sepanjang waktu. </p>
-				  <p>Ganti baterai iTag jika suara beep pada iTag sudah terdengar sangat pelan dan atau lampu indikator iTag sudah terlihat redup.</p>
+                 <p>Ganti baterai iTag jika suara beep pada iTag sudah terdengar sangat pelan dan atau lampu indikator iTag sudah terlihat redup.</p>
               </div>
             </div>
           </div>
@@ -846,7 +845,7 @@
               <p>Opsi ini memutus jalur aliran listrik utama langsung dari kunci kontak utama motor Anda.</p>
               <ul>
                 <li>Potong kabel keluaran (+12V) pada kunci kontak motor.</li>
-                <li>Sambungkan kabel <span class="badge-custom badge-red">Bintik Merah</span> dan <span class="badge-custom badge-orange">Bintik Orange</span> ke ujung kabel keluaran (+12V) dari Kunci Kontak (yang tadi dipotong). </li>
+                <li>Sambungkan kabel <span class="badge-custom badge-red">Bintik Merah</span> and <span class="badge-custom badge-orange">Bintik Orange</span> ke ujung kabel keluaran (+12V) dari Kunci Kontak (yang tadi dipotong). </li>
                 <li>Sambungkan kabel <span class="badge-custom badge-brown">Bintik Cokelat</span> ke ujung kabel potongan satunya (yang menuju ke sistem kelistrikan/beban motor). </li>
                 <li>Sambungkan kabel <span class="badge-custom badge-black">Bintik Hitam</span> ke rangka motor/massa (GND). </li>
                 <li>Untuk kabel <span class="badge-custom badge-green">Bintik Hijau</span> tidak wajib dipasang, fungsinya hanya untuk factory reset saat lupa sandi, jika ingin dipasang, digabung dengan out saklar klakson. </li>
@@ -957,6 +956,7 @@
             </button>
             <div class="accordion-content">
               <p>Saat kunci kontak diputar ke posisi <span class="badge">ON</span>, RideKey otomatis melakukan 3 siklus pemindaian kilat mencari MAC Address Kunci Pengaman yang terdaftar. Jika ditemukan, sistem akan mengaktifkan kelistrikan motor secara instan. </p>
+              <p>Jika Kunci Pengaman tidak ditemukan, RideKey akan otomatis membuka akses halaman konfigurasi (Hotspot Aktif).</p>
             </div>
           </div>
           <div class="section">
@@ -969,7 +969,7 @@
               <ul>
                 <li>Detik 30-45: Peringatan senyap & pemindaian kilat.</li>
                 <li>Detik 45-60: Buzzer berbunyi intermiten memberi peringatan awal sambari terus melakukan pemindaian kilat.</li>
-                <li>Detik 60+: Kelistrikan motor <strong>diputus total</strong> dan alarm internal (Buzzer) berbunyi secara terus menerus. </li>
+                <li>Detik 60+: Kelistrikan motor <strong>diputus</strong> dan alarm internal (Buzzer) berbunyi secara terus menerus. </li>
               </ul>
             </div>
           </div>
@@ -980,6 +980,7 @@
             </button>
             <div class="accordion-content">
               <p>Mode khusus saat motor akan ditinggal di bengkel atau tempat pencucian. Jika aktif, kelistrikan akan aktif secara permanen tanpa perlu memindai Kunci Pengaman, memastikan mekanik dapat menyalakan motor dengan bebas tanpa gangguan.</p>
+              <p>Saat <span class="badge badge-orange">Valet Mode</span> aktif, akses halaman konfigurasi selalu terbuka (Hotspot Aktif).</p>
             </div>
           </div>
           <div class="section">
@@ -989,6 +990,7 @@
             </button>
             <div class="accordion-content">
               <p>Jika Kunci Pengaman hilang atau rusak di perjalanan, pemilik dapat masuk ke halaman konfigurasi dan memicu mode <span class="badge badge-yellow">BYPASS</span>. Kelistrikan akan diaktifkan secara darurat saat sistem dijalankan ulang tanpa memerlukan Kunci Pengaman. </p>
+              <p>Ini hanya berlaku 1 kali, ketika Anda sudah memutar kunci kontak ke posisi <span class="badge">OFF</span> maka mode <span class="badge badge-yellow">BYPASS</span> berakhir. Saat kunci kontak kembali diputar ke posisi <span class="badge">ON</span>, RideKey akan kembali menjalankan 3 siklus pemindaian Kunci Pengaman.</p>
             </div>
           </div>
           <div class="section">
@@ -1080,7 +1082,7 @@
       function stopAllVideos() {
         const containers = document.querySelectorAll('.video-container');
         containers.forEach(container => {
-          container.innerHTML = ' < div class = "video-loader" >< /div>';
+          container.innerHTML = '<div class="video-loader"></div>';
         });
       }
 
@@ -1105,14 +1107,7 @@
           const videoContainer = content.querySelector('.video-container');
           if (videoContainer) {
             const videoId = videoContainer.getAttribute('data-video-id');
-            videoContainer.innerHTML = `
-                    
-										
-													
-																							
-																							<div class="video-loader"></div>
-																							<iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>
-                `;
+            videoContainer.innerHTML = `<div class="video-loader"></div><iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>`;
           }
           content.style.maxHeight = content.scrollHeight + "px";
           section.classList.add('active');
@@ -1186,14 +1181,7 @@
             const videoContainer = section.querySelector('.video-container');
             if (videoContainer && videoContainer.innerHTML.includes('video-loader') && !videoContainer.innerHTML.includes('iframe')) {
               const videoId = videoContainer.getAttribute('data-video-id');
-              videoContainer.innerHTML = `
-                        
-										
-													
-																							
-																							<div class="video-loader"></div>
-																							<iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>
-                    `;
+              videoContainer.innerHTML = `<div class="video-loader"></div><iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>`;
             }
             section.classList.add('active');
             totalVisible++;
@@ -1218,6 +1206,19 @@
           progressBar.style.width = '0%';
         }
       }
+
+      /* INISIALISASI UNTUK SEKSI YANG AKTIF DI AWAL */
+      document.addEventListener("DOMContentLoaded", function() {
+        const activeSections = document.querySelectorAll('.section.active');
+        activeSections.forEach(section => {
+          const content = section.querySelector('.accordion-content');
+          if (content) {
+            setTimeout(() => {
+              content.style.maxHeight = content.scrollHeight + "px";
+            }, 200);
+          }
+        });
+      });
     </script>
   </body>
 </html>
