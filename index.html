@@ -765,6 +765,23 @@
               </table>
             </div>
           </div>
+          <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ 💡 Tips Penting ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p style="margin-top: 0;">Agar modul RideKey berjalan 100% lancar tanpa kendala, harap perhatikan dua aturan karakteristik BLE berikut:</p>
+              <div style="background: #ebe7de; padding: 12px; border-radius: 4px; border: 1px solid #dbd7cd; margin-bottom: 10px;">
+                <strong style="color: #b91c1c;">⌚ Pengguna Smartwatch / Smart Band / Smart Ring:</strong>
+                <p style="margin: 5px 0 0 0; font-size: 12px; line-height: 1.5;"> Jika perangkat pintar Anda dijadikan Kunci Pengaman, <strong>matikan sementara Bluetooth pada HP Anda</strong> sebelum dan selama berkendara. Bluetooth BLE hanya bisa terhubung ke 1 perangkat. Jika smartwatch/smart band/smart ring Anda masih terhubung ke HP, sinyalnya akan "terkunci" dan tidak akan bisa terdeteksi oleh modul RideKey. </p>
+              </div>
+              <div style="background: #ebe7de; padding: 12px; border-radius: 4px; border: 1px solid #dbd7cd;">
+                <strong style="color: #b91c1c;">🏷️ Pengguna iTag Bawaan:</strong>
+                <p style="margin: 5px 0 0 0; font-size: 12px; line-height: 1.6;"> Sangat disarankan untuk <strong>mematikan (turn off) perangkat iTag Anda saat motor sedang tidak digunakan</strong> atau saat ditinggal tidur di malam hari. Hal ini sangat efektif untuk menghemat daya baterai kancing di dalam iTag agar tidak cepat habis karena terus-menerus memancarkan sinyal sepanjang waktu. </p>
+              </div>
+            </div>
+          </div>
         </div>
         <div id="tab-installasi" class="tab-content">
           <div class="section">
@@ -1091,6 +1108,7 @@
                     
 										
 													
+																							
 																							<div class="video-loader"></div>
 																							<iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>
                 `;
@@ -1171,6 +1189,7 @@
                         
 										
 													
+																							
 																							<div class="video-loader"></div>
 																							<iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>
                     `;
