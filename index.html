@@ -654,6 +654,47 @@
             </div>
           </div>
           <div class="section">
+            <button class="accordion-header" onclick="toggleAccordion(this)"> [ Diagram Alur Kerja RideKey ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p style="margin-bottom: 20px;">Berikut adalah alur kerja RideKey setiap kali kunci kontak diputar ke posisi <span class="badge">ON</span>: </p>
+              <div style="display: flex; flex-direction: column; align-items: center; font-family: monospace; font-size: 11px; color: #2d2b2a; line-height: 1.2;">
+                <div style="background: #2d2b2a; color: #faf8f5; padding: 8px 12px; border-radius: 4px; text-align: center; font-weight: bold; width: 180px;"> 1. KUNCI KONTAK ON </div>
+                <div style="color: #b91c1c; margin: 4px 0; font-weight: bold;">│ <br>▼ </div>
+                <div style="border: 1px solid #dbd7cd; background: #ebe7de; padding: 8px 12px; border-radius: 4px; text-align: center; width: 180px;"> 2. BUZZER: <span style="color:#b91c1c; font-weight:bold;">Beep-Beep</span>
+                  <br>
+                  <small>(Mulai Scan BLE 3 Siklus)</small>
+                </div>
+                <div style="color: #b91c1c; margin: 4px 0; font-weight: bold;">│ <br>▼ </div>
+                <div style="border: 2px dashed #b91c1c; background: #faf8f5; padding: 10px; border-radius: 4px; text-align: center; width: 200px; font-weight: bold;"> Apakah Kunci Pengaman <br>Ditemukan? </div>
+                <div style="display: flex; width: 100%; max-width: 340px; justify-content: space-between; margin-top: 4px;">
+                  <div style="display: flex; flex-direction: column; align-items: center; width: 45%;">
+                    <div style="color: #059669; font-weight: bold; font-size: 12px;">[ YA ]</div>
+                    <div style="color: #059669; font-weight: bold; margin-bottom: 4px;">│ <br>▼ </div>
+                    <div style="border: 1px solid #cbd5e1; background: #faf8f5; padding: 8px; border-radius: 4px; text-align: center; min-height: 55px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; border-left: 4px solid #059669; width: 100%;">
+                      <strong>KELISTRIKAN AKTIF</strong>
+                      <span style="font-size:10px; color:#555; margin-top:3px;">Buzzer: Beep—Beep <br>(Jeda Sedang) </span>
+                    </div>
+                    <div style="color: #059669; font-weight: bold; margin: 4px 0;">│ <br>▼ </div>
+                    <div style="background: #059669; color: white; padding: 6px; border-radius: 4px; text-align: center; font-size: 10px; width: 100%; box-sizing: border-box;"> Motor Siap Dipakai &amp; <br>Anti-Begal Siaga (jika aktif) </div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; align-items: center; width: 45%;">
+                    <div style="color: #d97706; font-weight: bold; font-size: 12px;">[ TIDAK ]</div>
+                    <div style="color: #d97706; font-weight: bold; margin-bottom: 4px;">│ <br>▼ </div>
+                    <div style="border: 1px solid #cbd5e1; background: #faf8f5; padding: 8px; border-radius: 4px; text-align: center; min-height: 55px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; border-left: 4px solid #d97706; width: 100%;">
+                      <strong>HOTSPOT AKTIF</strong>
+                      <span style="font-size:10px; color:#555; margin-top:3px;">Buzzer: Beep 5x Cepat</span>
+                    </div>
+                    <div style="color: #d97706; font-weight: bold; margin: 4px 0;">│ <br>▼ </div>
+                    <div style="background: #1f2937; color: white; padding: 6px; border-radius: 4px; text-align: center; font-size: 10px; width: 100%; box-sizing: border-box;"> Halaman konfigurasi aktif </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="section">
             <button class="accordion-header" onclick="toggleAccordion(this)"> [ Konfigurasi Default ] <svg class="accordion-icon-svg" aria-hidden="true" viewBox="0 0 24 24">
                 <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
               </svg>
@@ -1005,7 +1046,7 @@
         </div>
       </div>
       <div class="footer-fixed">
-        <div>Made with ❤️ in Panjalu ~ Powered by Otak-Atik Project</div>
+        <div>Made with ❤️ by Otak-Atik Project</div>
         <div class="footer-links">
           <a href="https://wa.me/6285323776010" target="_blank"> 💬 Hubungi Kami </a>
         </div>
@@ -1049,8 +1090,9 @@
             videoContainer.innerHTML = `
                     
 										
-													<div class="video-loader"></div>
-													<iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>
+													
+																							<div class="video-loader"></div>
+																							<iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>
                 `;
           }
           content.style.maxHeight = content.scrollHeight + "px";
@@ -1128,8 +1170,9 @@
               videoContainer.innerHTML = `
                         
 										
-													<div class="video-loader"></div>
-													<iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>
+													
+																							<div class="video-loader"></div>
+																							<iframe src="https://www.youtube.com/embed/${videoId}" onload="videoSelesaiPemuatan(this)"></iframe>
                     `;
             }
             section.classList.add('active');
