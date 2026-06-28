@@ -598,12 +598,6 @@
           content: attr(data-label);
         }
       }
-      @media (max-width: 480px) {
-  #ml-badge {
-    opacity: 0.85;
-    transform: scale(0.95);
-  }
-}
     </style>
   </head>
   <body>
@@ -1078,97 +1072,6 @@
         </div>
       </div>
     </div>
-    <div id="ml-badge" onclick="toggleMotoPanel()" style="
-  position: fixed;
-  bottom: 12px;
-  right: 12px;
-  background: rgba(244, 241, 234, 0.92);
-  border: 1px solid #dbd7cd;
-  border-left: 4px solid #b91c1c;
-  border-radius: 10px;
-  padding: 8px 10px;
-  font-family: monospace;
-  font-size: 10px;
-  color: #2d2b2a;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
-  z-index: 9999;
-  backdrop-filter: blur(6px);
-  min-width: 140px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-">
-  <div style="font-weight: bold; color:#b91c1c; margin-bottom: 2px;">
-    MotoLock • LIVE
-  </div>
-
-  <div>
-    📊 <span id="ml-total">0</span> visits
-    <span style="color:#8a8477;">|</span>
-    👤 <span id="ml-unique">0</span>
-  </div>
-</div>
-    <div id="ml-panel" style="
-  position: fixed;
-  bottom: 70px;
-  right: 12px;
-  width: 220px;
-  background: #f4f1ea;
-  border: 1px solid #dbd7cd;
-  border-radius: 10px;
-  padding: 12px;
-  font-family: monospace;
-  font-size: 11px;
-  color: #2d2b2a;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  z-index: 9999;
-  display: none;
-">
-  <div style="font-weight:bold; color:#b91c1c; margin-bottom:6px;">
-    MotoLock Analytics
-  </div>
-
-  <div>📊 Total Visits: <span id="ml-total-panel">0</span></div>
-  <div>👤 Unique Today: <span id="ml-unique-panel">0</span></div>
-
-  <div style="
-    margin-top:8px;
-    font-size:10px;
-    color:#8a8477;
-    border-top:1px dashed #dbd7cd;
-    padding-top:6px;
-  ">
-    tap badge to close
-  </div>
-    </div>
-    <script>
-let panelOpen = false;
-
-function toggleMotoPanel() {
-  const panel = document.getElementById("ml-panel");
-  panelOpen = !panelOpen;
-  panel.style.display = panelOpen ? "block" : "none";
-}
-
-async function loadMotoLockAnalytics() {
-  try {
-    const res = await fetch("/api/track");
-    const data = await res.json();
-
-    // floating badge
-    document.getElementById("ml-total").innerText = data.total_visits;
-    document.getElementById("ml-unique").innerText = data.unique_today ? "1" : "0";
-
-    // popup panel
-    document.getElementById("ml-total-panel").innerText = data.total_visits;
-    document.getElementById("ml-unique-panel").innerText = data.unique_today ? "1 (new)" : "0";
-
-  } catch (e) {
-    console.log("MotoLock analytics error:", e);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", loadMotoLockAnalytics);
-</script>
     <script>
       function videoSelesaiPemuatan(iframe) {
         const loader = iframe.previousElementSibling;
